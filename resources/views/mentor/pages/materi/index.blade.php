@@ -43,7 +43,7 @@
                             <td>
                                 <button class="btn  btn-dark btn-sm btn-lihat" data-judul="{{ $m->judul_materi }}"
                                     data-materi="{{ $m->materi }}">Lihat Materi</button> |
-                                    <?php $id = Crypt::encrypt($m->id); ?>
+                                    <?php $id = Crypt::encrypt($m->kode_materi); ?>
                                     <a class="btn  btn-success btn-sm" href="{{ action('Mentor\MateriController@downloadPDF', $id) }}">Download Materi (PDF)<br><sup>Video tidak akan tampil</sup></a>
                             </td>
                             <td>{{ $m->pelajaran->nama_pelajaran }}</td>

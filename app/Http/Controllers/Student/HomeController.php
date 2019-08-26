@@ -46,6 +46,8 @@ class HomeController extends Controller
         //     echo $n->js_ke_n;
         // }
 
+        $mentor = Mentor::all();
+
         return view('student.home', compact("std", 'nilai', 'mentor'));
     }
     public function mentor()

@@ -10,6 +10,8 @@ Route::group(['namespace' => 'Student'], function () {
     Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('student.register');
     Route::post('register', 'Auth\RegisterController@register');
 
+
+    Route::get("materi/downloadPDF/{id}", "MateriController@downloadPDF")->name("student.download_materi");
     // Passwords
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('student.password.email');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');

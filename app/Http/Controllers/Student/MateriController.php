@@ -11,6 +11,7 @@ use App\Student;
 use App\Mentor;
 use App\Materi;
 use App\Pelajaran;
+use DOMPDF;
 
 class MateriController extends Controller
 {
@@ -25,6 +26,16 @@ class MateriController extends Controller
         //         return redirect()->route('student.materi');
         //     }
         // }
+    }
+
+    public function downloadPDF($id)
+    {
+        // $materi_id = Crypt::decrypt($id);
+        $materi = Materi::find($id);
+
+        $pdf = DOMPDF::loadView('mentor.pages.materi.pdf', compact('materi'));
+
+        return $pdf->download($materi->judul_materi . '.pdf');
     }
 
     public function index()
