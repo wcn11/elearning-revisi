@@ -1,7 +1,4 @@
-@extends('mentor.layouts.app')
-
-
-@section('main-content')
+<?php $__env->startSection('main-content'); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -33,33 +30,33 @@
 
     <div class="tab-content" id="pills-tabContent">
 
-        {{-- KELAS 10 --}}
+        
         <div class="tab-pane fade show active" id="pills-10" role="tabpanel" aria-labelledby="pills-10-tab">
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        @foreach($materi_10 as $m10)
-                        <a class="nav-item nav-link" id="nav-{{ $m10->kode_mentor_pelajaran }}-tab" data-toggle="tab"
-                            href="#nav-{{ $m10->kode_mentor_pelajaran }}" role="tab"
-                            aria-controls="nav-{{ $m10->kode_mentor_pelajaran }}"
-                            aria-selected="true">{{ $m10->mp_ke_mapel->nama_pelajaran }}</a>
-                        @endforeach
+                        <?php $__currentLoopData = $materi_10; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <a class="nav-item nav-link" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab" data-toggle="tab"
+                            href="#nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tab"
+                            aria-controls="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>"
+                            aria-selected="true"><?php echo e($m10->mp_ke_mapel->nama_pelajaran); ?></a>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </nav>
 
-                {{-- <input type="hidden" value="{{ $mentor->m_ke_mp->count() }}" name="jumlah_materi"> --}}
+                
                 <div class="tab-content" id="nav-tabContent">
 
-                    @foreach ($materi_10 as $m10)
-                    <div class="tab-pane fade p-2" id="nav-{{ $m10->kode_mentor_pelajaran }}" role="tabpanel"
-                        aria-labelledby="nav-{{ $m10->kode_mentor_pelajaran }}-tab">
+                    <?php $__currentLoopData = $materi_10; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="tab-pane fade p-2" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tabpanel"
+                        aria-labelledby="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab">
 
                         <div class="w-100 text-center m-2">
-                            <form action="{{ route('mentor.tambah_materi') }}" class="form" method="get">
+                            <form action="<?php echo e(route('mentor.tambah_materi')); ?>" class="form" method="get">
 
-                                <input type="hidden" name="kmp" value="{{ $m10->kode_mentor_pelajaran }}">
+                                <input type="hidden" name="kmp" value="<?php echo e($m10->kode_mentor_pelajaran); ?>">
                                 <button type="submit" class="btn btn-dark text-right"><i class="fas fa-plus"></i> Tambah
                                     materi</button>
                             </form>
@@ -80,84 +77,84 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($m10->mp_ke_materi as $m2)
+                                    <?php $__currentLoopData = $m10->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="text-center">
                                         <td>
                                             <div class="p-1 cover">
-                                                <img src="{{ url('/images/cover_materi/'.$m2->cover) }}"
+                                                <img src="<?php echo e(url('/images/cover_materi/'.$m2->cover)); ?>"
                                                     class="gambar border-secondary border w-100 border-0">
                                             </div>
                                         </td>
-                                        <td>{{ $m2->judul_materi }}</td>
+                                        <td><?php echo e($m2->judul_materi); ?></td>
                                         <td>
-                                            <button class="btn btn-info btn-lihat" data-id="{{ $m2->kode_materi }}"><i
+                                            <button class="btn btn-info btn-lihat" data-id="<?php echo e($m2->kode_materi); ?>"><i
                                                     class="fas fa-eye"></i> Lihat materi</button>
                                             <div class="m-1"></div>
-                                            <a href="{{ route('mentor.download_materi', $m2->kode_materi) }}"
+                                            <a href="<?php echo e(route('mentor.download_materi', $m2->kode_materi)); ?>"
                                                 target="_blank" class="btn btn-success btn-cetak"><i
                                                     class="fas fa-file-pdf"></i> Cetak
                                                 Materi<br><small>Video tidak akan tampil</small></a>
                                         </td>
-                                        <td>{{ $m10->kelas_ke_mp->kelas }}</td>
-                                        <td>{{ $m2->mapel_ke_materi->nama_pelajaran }}</td>
-                                        <td>{{ $m2->dibuat }}</td>
-                                        <td>{{ $m2->diupdate }}</td>
+                                        <td><?php echo e($m10->kelas_ke_mp->kelas); ?></td>
+                                        <td><?php echo e($m2->mapel_ke_materi->nama_pelajaran); ?></td>
+                                        <td><?php echo e($m2->dibuat); ?></td>
+                                        <td><?php echo e($m2->diupdate); ?></td>
                                         <td>
                                             <div class="p-1">
                                                 <a class="btn btn-warning"
-                                                    href="{{ route('mentor.edit_materi', $m2->kode_materi) }}"><i
+                                                    href="<?php echo e(route('mentor.edit_materi', $m2->kode_materi)); ?>"><i
                                                         class="fas fa-edit"></i> edit</a>
                                                 <button class="btn btn-danger btn-hapus"
-                                                    data-id="{{ $m2->kode_materi }}"><i class="fas fa-edit"></i>
+                                                    data-id="<?php echo e($m2->kode_materi); ?>"><i class="fas fa-edit"></i>
                                                     hapus</button>
                                             </div>
-                                            <form class="form-hapus-{{ $m2->kode_materi }}"
-                                                action="{{ route('mentor.hapus_materi') }}" method="post">
-                                                @csrf
+                                            <form class="form-hapus-<?php echo e($m2->kode_materi); ?>"
+                                                action="<?php echo e(route('mentor.hapus_materi')); ?>" method="post">
+                                                <?php echo csrf_field(); ?>
                                                 <input type="hidden" name="kode_materi">
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
             </div>
 
         </div>
 
-        {{-- KELAS 11 --}}
+        
         <div class="tab-pane fade" id="pills-11" role="tabpanel" aria-labelledby="pills-11-tab">
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        @foreach($materi_11 as $m10)
-                        <a class="nav-item nav-link" id="nav-{{ $m10->kode_mentor_pelajaran }}-tab" data-toggle="tab"
-                            href="#nav-{{ $m10->kode_mentor_pelajaran }}" role="tab"
-                            aria-controls="nav-{{ $m10->kode_mentor_pelajaran }}"
-                            aria-selected="true">{{ $m10->mp_ke_mapel->nama_pelajaran }}</a>
-                        @endforeach
+                        <?php $__currentLoopData = $materi_11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <a class="nav-item nav-link" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab" data-toggle="tab"
+                            href="#nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tab"
+                            aria-controls="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>"
+                            aria-selected="true"><?php echo e($m10->mp_ke_mapel->nama_pelajaran); ?></a>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </nav>
 
-                {{-- <input type="hidden" value="{{ $mentor->m_ke_mp->count() }}" name="jumlah_materi"> --}}
+                
                 <div class="tab-content" id="nav-tabContent">
 
-                    @foreach ($materi_11 as $m10)
-                    <div class="tab-pane fade p-2" id="nav-{{ $m10->kode_mentor_pelajaran }}" role="tabpanel"
-                        aria-labelledby="nav-{{ $m10->kode_mentor_pelajaran }}-tab">
+                    <?php $__currentLoopData = $materi_11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="tab-pane fade p-2" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tabpanel"
+                        aria-labelledby="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab">
 
                         <div class="w-100 text-center m-2">
-                            <form action="{{ route('mentor.tambah_materi') }}" class="form" method="get">
+                            <form action="<?php echo e(route('mentor.tambah_materi')); ?>" class="form" method="get">
 
-                                <input type="hidden" name="kmp" value="{{ $m10->kode_mentor_pelajaran }}">
-                                {{-- <input type="hidden" name="kmp" value="{{  }}"> --}}
+                                <input type="hidden" name="kmp" value="<?php echo e($m10->kode_mentor_pelajaran); ?>">
+                                
                                 <button type="submit" class="btn btn-dark text-right"><i class="fas fa-plus"></i> Tambah
                                     materi</button>
                             </form>
@@ -178,84 +175,84 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($m10->mp_ke_materi as $m2)
+                                    <?php $__currentLoopData = $m10->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="text-center">
                                         <td>
                                             <div class="p-1 cover">
-                                                <img src="{{ url('/images/cover_materi/'.$m2->cover) }}"
+                                                <img src="<?php echo e(url('/images/cover_materi/'.$m2->cover)); ?>"
                                                     class="gambar border-secondary border w-100 border-0">
                                             </div>
                                         </td>
-                                        <td>{{ $m2->judul_materi }}</td>
+                                        <td><?php echo e($m2->judul_materi); ?></td>
                                         <td>
-                                            <button class="btn btn-info btn-lihat" data-id="{{ $m2->kode_materi }}"><i
+                                            <button class="btn btn-info btn-lihat" data-id="<?php echo e($m2->kode_materi); ?>"><i
                                                     class="fas fa-eye"></i> Lihat materi</button>
                                             <div class="m-1"></div>
-                                            <a href="{{ route('mentor.download_materi', $m2->kode_materi) }}"
+                                            <a href="<?php echo e(route('mentor.download_materi', $m2->kode_materi)); ?>"
                                                 target="_blank" class="btn btn-success btn-cetak"><i
                                                     class="fas fa-file-pdf"></i> Cetak
                                                 Materi<br><small>Video tidak akan tampil</small></a>
                                         </td>
-                                        <td>{{ $m10->kelas_ke_mp->kelas }}</td>
-                                        <td>{{ $m2->mapel_ke_materi->nama_pelajaran }}</td>
-                                        <td>{{ $m2->dibuat }}</td>
-                                        <td>{{ $m2->diupdate }}</td>
+                                        <td><?php echo e($m10->kelas_ke_mp->kelas); ?></td>
+                                        <td><?php echo e($m2->mapel_ke_materi->nama_pelajaran); ?></td>
+                                        <td><?php echo e($m2->dibuat); ?></td>
+                                        <td><?php echo e($m2->diupdate); ?></td>
                                         <td>
                                             <div class="p-1">
                                                 <a class="btn btn-warning"
-                                                    href="{{ route('mentor.edit_materi', $m2->kode_materi) }}"><i
+                                                    href="<?php echo e(route('mentor.edit_materi', $m2->kode_materi)); ?>"><i
                                                         class="fas fa-edit"></i> edit</a>
                                                 <button class="btn btn-danger btn-hapus"
-                                                    data-id="{{ $m2->kode_materi }}"><i class="fas fa-edit"></i>
+                                                    data-id="<?php echo e($m2->kode_materi); ?>"><i class="fas fa-edit"></i>
                                                     hapus</button>
                                             </div>
-                                            <form class="form-hapus-{{ $m2->kode_materi }}"
-                                                action="{{ route('mentor.hapus_materi') }}" method="post">
-                                                @csrf
+                                            <form class="form-hapus-<?php echo e($m2->kode_materi); ?>"
+                                                action="<?php echo e(route('mentor.hapus_materi')); ?>" method="post">
+                                                <?php echo csrf_field(); ?>
                                                 <input type="hidden" name="kode_materi">
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
             </div>
 
         </div>
 
-        {{-- KELAS 12 --}}
+        
         <div class="tab-pane fade" id="pills-12" role="tabpanel" aria-labelledby="pills-12-tab">
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        @foreach($materi_12 as $m10)
-                        <a class="nav-item nav-link" id="nav-{{ $m10->kode_mentor_pelajaran }}-tab" data-toggle="tab"
-                            href="#nav-{{ $m10->kode_mentor_pelajaran }}" role="tab"
-                            aria-controls="nav-{{ $m10->kode_mentor_pelajaran }}"
-                            aria-selected="true">{{ $m10->mp_ke_mapel->nama_pelajaran }}</a>
-                        @endforeach
+                        <?php $__currentLoopData = $materi_12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <a class="nav-item nav-link" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab" data-toggle="tab"
+                            href="#nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tab"
+                            aria-controls="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>"
+                            aria-selected="true"><?php echo e($m10->mp_ke_mapel->nama_pelajaran); ?></a>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </nav>
 
-                {{-- <input type="hidden" value="{{ $mentor->m_ke_mp->count() }}" name="jumlah_materi"> --}}
+                
                 <div class="tab-content" id="nav-tabContent">
 
-                    @foreach ($materi_12 as $m10)
-                    <div class="tab-pane fade p-2" id="nav-{{ $m10->kode_mentor_pelajaran }}" role="tabpanel"
-                        aria-labelledby="nav-{{ $m10->kode_mentor_pelajaran }}-tab">
+                    <?php $__currentLoopData = $materi_12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="tab-pane fade p-2" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tabpanel"
+                        aria-labelledby="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab">
 
                         <div class="w-100 text-center m-2">
-                            <form action="{{ route('mentor.tambah_materi') }}" class="form" method="get">
+                            <form action="<?php echo e(route('mentor.tambah_materi')); ?>" class="form" method="get">
 
-                                <input type="hidden" name="kmp" value="{{ $m10->kode_mentor_pelajaran }}">
-                                {{-- <input type="hidden" name="kmp" value="{{  }}"> --}}
+                                <input type="hidden" name="kmp" value="<?php echo e($m10->kode_mentor_pelajaran); ?>">
+                                
                                 <button type="submit" class="btn btn-dark text-right"><i class="fas fa-plus"></i> Tambah
                                     materi</button>
                             </form>
@@ -276,50 +273,50 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($m10->mp_ke_materi as $m2)
+                                    <?php $__currentLoopData = $m10->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="text-center">
                                         <td>
                                             <div class="p-1 cover">
-                                                <img src="{{ url('/images/cover_materi/'.$m2->cover) }}"
+                                                <img src="<?php echo e(url('/images/cover_materi/'.$m2->cover)); ?>"
                                                     class="gambar border-secondary border w-100 border-0">
                                             </div>
                                         </td>
-                                        <td>{{ $m2->judul_materi }}</td>
+                                        <td><?php echo e($m2->judul_materi); ?></td>
                                         <td>
-                                            <button class="btn btn-info btn-lihat" data-id="{{ $m2->kode_materi }}"><i
+                                            <button class="btn btn-info btn-lihat" data-id="<?php echo e($m2->kode_materi); ?>"><i
                                                     class="fas fa-eye"></i> Lihat materi</button>
                                             <div class="m-1"></div>
-                                            <a href="{{ route('mentor.download_materi', $m2->kode_materi) }}"
+                                            <a href="<?php echo e(route('mentor.download_materi', $m2->kode_materi)); ?>"
                                                 target="_blank" class="btn btn-success btn-cetak"><i
                                                     class="fas fa-file-pdf"></i> Cetak
                                                 Materi<br><small>Video tidak akan tampil</small></a>
                                         </td>
-                                        <td>{{ $m10->kelas_ke_mp->kelas }}</td>
-                                        <td>{{ $m2->mapel_ke_materi->nama_pelajaran }}</td>
-                                        <td>{{ $m2->dibuat }}</td>
-                                        <td>{{ $m2->diupdate }}</td>
+                                        <td><?php echo e($m10->kelas_ke_mp->kelas); ?></td>
+                                        <td><?php echo e($m2->mapel_ke_materi->nama_pelajaran); ?></td>
+                                        <td><?php echo e($m2->dibuat); ?></td>
+                                        <td><?php echo e($m2->diupdate); ?></td>
                                         <td>
                                             <div class="p-1">
                                                 <a class="btn btn-warning"
-                                                    href="{{ route('mentor.edit_materi', $m2->kode_materi) }}"><i
+                                                    href="<?php echo e(route('mentor.edit_materi', $m2->kode_materi)); ?>"><i
                                                         class="fas fa-edit"></i> edit</a>
                                                 <button class="btn btn-danger btn-hapus"
-                                                    data-id="{{ $m2->kode_materi }}"><i class="fas fa-edit"></i>
+                                                    data-id="<?php echo e($m2->kode_materi); ?>"><i class="fas fa-edit"></i>
                                                     hapus</button>
                                             </div>
-                                            <form class="form-hapus-{{ $m2->kode_materi }}"
-                                                action="{{ route('mentor.hapus_materi') }}" method="post">
-                                                @csrf
+                                            <form class="form-hapus-<?php echo e($m2->kode_materi); ?>"
+                                                action="<?php echo e(route('mentor.hapus_materi')); ?>" method="post">
+                                                <?php echo csrf_field(); ?>
                                                 <input type="hidden" name="kode_materi">
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
             </div>
@@ -327,7 +324,7 @@
     </div>
 </div>
 
-{{--  MODAL  --}}
+
 
 <div class="modal fade modal-materi" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
@@ -354,11 +351,11 @@
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scriptcss')
+<?php $__env->startSection('scriptcss'); ?>
 
-<link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet">
 <style>
     .container-hapus:hover,
     .container-edit:hover {
@@ -376,15 +373,15 @@
     }
 </style>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scriptjs')
+<?php $__env->startSection('scriptjs'); ?>
 <!-- Page level plugins -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="<?php echo e(asset('vendor/datatables/jquery.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
 
 <!-- Page level custom scripts -->
-<script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+<script src="<?php echo e(asset('js/demo/datatables-demo.js')); ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script>
     $(document).ready(function () {
@@ -424,7 +421,7 @@
 
             $.ajax({
                 type: "post",
-                url: "{{ url('mentor/materi/ambildata') }}" + "/" + id,
+                url: "<?php echo e(url('mentor/materi/ambildata')); ?>" + "/" + id,
                 data: {
                     kode_materi: id
                 },
@@ -484,7 +481,7 @@
     });
 </script>
 
-@if(Session::get('success_upload_materi'))
+<?php if(Session::get('success_upload_materi')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -492,9 +489,9 @@
         'success'
     )
 </script>
-@endif
+<?php endif; ?>
 
-@if(Session::get('success_update_materi'))
+<?php if(Session::get('success_update_materi')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -502,9 +499,9 @@
         'success'
     )
 </script>
-@endif
+<?php endif; ?>
 
-@if(Session::get('hapus_materi'))
+<?php if(Session::get('hapus_materi')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -514,5 +511,6 @@
 </script>
 
 
-@endif
-@endsection
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mentor.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/wahyu/Desktop/mozart-elearning/resources/views/mentor/pages/materi/daftar_materi.blade.php ENDPATH**/ ?>

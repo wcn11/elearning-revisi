@@ -19,13 +19,23 @@ class SoalController extends Controller
 {
     public function index()
     {
-        $soal_judul = Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->get();
+        // $sj10 = Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where("kode_kelas", "KLS-10")->get();
+        // $sj11 = Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where("kode_kelas", "KLS-11")->get();
+        // $sj12 = Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where("kode_kelas", "KLS-12")->get();
 
         $pelajaran = Pelajaran::all();
 
         $mentor = Mentor::find(Auth::guard('mentor')->user()->id_mentor);
 
-        return view('mentor.pages.question.index', ['sj' => $soal_judul, 'pelajaran' => $pelajaran, "mentor" => $mentor]);
+        $id_mentor = Auth::guard('mentor')->user()->id_mentor;
+
+        $js10 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-10")->get();
+
+        $js11 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-11")->get();
+
+        $js12 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-12")->get();
+
+        return view('mentor.pages.question.index', compact("js10", "js11", "js12", "mentor", 'pelajaran'));
     }
 
     public function soal_read($kode_judul_soal)
@@ -59,9 +69,15 @@ class SoalController extends Controller
         $id_mentor_slash = strrpos($id_mentor, "-");
         $id_mentor_substr = substr($id_mentor, $id_mentor_slash + 1);
 
-        $soal_judul_max = Soal_judul::max("kode_judul_soal");
-        $soal_judul_slash = strrpos($soal_judul_max, "-");
-        $soal_judul_substr = substr($soal_judul_max, $soal_judul_slash + 1) + 1;
+        $sj = Soal_judul::all();
+
+        $js_array = [];
+
+        foreach ($sj as $m) {
+            $js_array[] = substr($m->kode_judul_soal, strrpos($m->kode_judul_soal, "-") + 1);
+        }
+
+        $kode_js = max($js_array) + 1;
 
         $kode_mapel = $request->kode_mapel;
         $kode_mapel_slash = strrpos($kode_mapel, "-");
@@ -83,7 +99,7 @@ class SoalController extends Controller
         $sj->kode_judul_soal = "KJS-"
             . $id_mentor_substr . "-"
             . $kode_mapel_substr . "-"
-            . $soal_judul_substr;
+            . $kode_js;
 
         $sj->kode_mapel = $request->kode_mapel;
 
@@ -101,8 +117,6 @@ class SoalController extends Controller
 
         $sj->save();
 
-
-
         $soal_judul = Soal_judul::find($sj->kode_judul_soal);
 
         $id_mentor = Auth::guard('mentor')->user()->id_mentor;
@@ -111,22 +125,26 @@ class SoalController extends Controller
 
         $mentor_substr = substr($id_mentor, $mentor_slash + 1);
 
-        $kode_soal = [];
-
-        $last_id = [];
-
         for ($i = 0; $i < $request->jumlah_soal; $i++) {
 
-            $soal = Soal::max("kode_soal");
+            $sl = Soal::all();
 
-            $soal_slash = strrpos($soal, "-") + 1;
+            $soal_array = [];
 
-            $soal_substr = substr($soal, $soal_slash) + 1;
+            foreach ($sl as $m) {
+                $soal_array[] = substr($m->kode_soal, strrpos($m->kode_soal, "-") + 1);
+            }
 
+            $kode_soal = max($soal_array) + 1;
 
+            // $soal = Soal::max("kode_soal");
+
+            // $soal_slash = strrpos($soal, "-") + 1;
+
+            // $soal_substr = substr($soal, $soal_slash) + 1;
 
             $sl = Soal::create([
-                'kode_soal' => "SOAL-" . $mentor_substr . "-" . $soal_substr,
+                'kode_soal' => "SOAL-" . $mentor_substr . "-" . $kode_soal,
                 'id_mentor' => $id_mentor,
                 'kode_judul_soal' => $sj->kode_judul_soal,
                 'pertanyaan' => "",

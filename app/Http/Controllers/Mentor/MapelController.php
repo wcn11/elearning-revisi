@@ -8,6 +8,7 @@ use App\Mentor_pelajaran;
 use Illuminate\Support\Facades\Auth;
 use App\Mentor;
 use App\Pelajaran;
+use App\Kelas;
 use Illuminate\Support\Facades\Session;
 
 class MapelController extends Controller
@@ -23,46 +24,59 @@ class MapelController extends Controller
 
     public function tambah_mapel(Request $r)
     {
-        $mapel1 = $r->mapel;
-        $id_mentor = Auth::guard('mentor')->user()->id_mentor;
 
-        $mapel_all = Mentor::find($id_mentor);
+        $kelas = Mentor_pelajaran::where("id_mentor", Auth::guard("mentor")->user()->id_mentor)->where("kode_mapel", $r->mapel)->where("kode_kelas", $r->kode_kelas)->count();
 
-        foreach ($mapel_all->m_ke_mp as $m) {
-            if ($m->kode_mapel == $mapel1) {
-                Session::flash("sudah_ada", "ada");
-                return redirect()->back();
-                break;
-            }
+        if ($kelas > 0) {
+            Session::flash("sudah_ada", "gagal");
+
+            return redirect()->back();
+        } else {
+            $mapel1 = $r->mapel;
+            $id_mentor = Auth::guard('mentor')->user()->id_mentor;
+
+            // $mapel_all = Mentor::find($id_mentor);
+
+            // foreach ($mapel_all->m_ke_mp as $m) {
+            //     if ($m->kode_mapel == $mapel1) {
+            //         Session::flash("sudah_ada", "ada");
+            //         return redirect()->back();
+            //         break;
+            //     }
+            // }
+
+            $kelas_substr = substr($r->kode_kelas, strrpos($r->kode_kelas, "-") + 1);
+
+            $mentor_slash = strrpos($id_mentor, "-");
+
+            $mentor_substr = substr($id_mentor, $mentor_slash + 1);
+
+            $mpl_slash = strrpos($mapel1, "-");
+
+            $mpl_substr = substr($mapel1, $mpl_slash + 1);
+
+            $mp_jumlah = Mentor_pelajaran::max("kode_mentor_pelajaran");
+
+            $mp_jumlah_slash = strrpos($mp_jumlah, "-");
+
+            $mp_jumlah_substr = substr($mp_jumlah, $mp_jumlah_slash + 1) + 1;
+
+            $mp = new Mentor_pelajaran;
+
+            $mp->kode_mentor_pelajaran = "MP-" . $mentor_substr . "-" . $kelas_substr . "-" . $mpl_substr . "-" . $mp_jumlah_substr;
+
+            $mp->id_mentor = $id_mentor;
+
+            $mp->kode_mapel = $mapel1;
+
+            $mp->kode_kelas = $r->kode_kelas;
+
+            $mp->save();
+
+            Session::flash("berhasil_tambah", "berhasil");
+
+            return redirect()->back();
         }
-
-        $mentor_slash = strrpos($id_mentor, "-");
-
-        $mentor_substr = substr($id_mentor, $mentor_slash + 1);
-
-        $mpl_slash = strrpos($mapel1, "-");
-
-        $mpl_substr = substr($mapel1, $mpl_slash + 1);
-
-        $mp_jumlah = Mentor_pelajaran::max("kode_mentor_pelajaran");
-
-        $mp_jumlah_slash = strrpos($mp_jumlah, "-");
-
-        $mp_jumlah_substr = substr($mp_jumlah, $mp_jumlah_slash + 1) + 1;
-
-        $mp = new Mentor_pelajaran;
-
-        $mp->kode_mentor_pelajaran = "MP-" . $mentor_substr . "-" . $mpl_substr . "-" . $mp_jumlah_substr;
-
-        $mp->id_mentor = $id_mentor;
-
-        $mp->kode_mapel = $mapel1;
-
-        $mp->save();
-
-        Session::flash("berhasil_tambah", "berhasil");
-
-        return redirect()->back();
     }
 
     public function edit_kuota(Request $request)

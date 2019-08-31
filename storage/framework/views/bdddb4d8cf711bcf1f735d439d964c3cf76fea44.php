@@ -1,6 +1,4 @@
-@extends('mentor.layouts.app')
-
-@section('main-content')
+<?php $__env->startSection('main-content'); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -9,24 +7,24 @@
     <p class="mb-4">Upload makalah anda dengan sebaik baiknya, dan biarkan pada muridmu membacanya kembali.</p>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <form class="form form-upload" action="{{ route('mentor.materi_upload_aksi') }}" class="col-md-12" method="POST"
+        <form class="form form-upload" action="<?php echo e(route('mentor.materi_upload_aksi')); ?>" class="col-md-12" method="POST"
             enctype="multipart/form-data">
 
-            @csrf
-            <input type="hidden" name="kmp" value="{{ $kmp->kode_mentor_pelajaran }}">
+            <?php echo csrf_field(); ?>
+            <input type="hidden" name="kmp" value="<?php echo e($kmp->kode_mentor_pelajaran); ?>">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-info">Murid</h6>
             </div>
             <div class="card-body">
-                @if (count($errors) > 0)
+                <?php if(count($errors) > 0): ?>
                 <div class="alert alert-danger">
                     <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-                @endif
+                <?php endif; ?>
                 <div class="row">
                     <div class="col-md-6 grid-margin">
                         <div class="card" style="border:0;">
@@ -43,9 +41,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-info text-white">Kategori pelajaran</span>
                                         </div>
-                                        <p> {{ $kmp->mp_ke_mapel->nama_pelajaran }} | {{ $kmp->kelas_ke_mp->kelas }} SMA
+                                        <p> <?php echo e($kmp->mp_ke_mapel->nama_pelajaran); ?> | <?php echo e($kmp->kelas_ke_mp->kelas); ?> SMA
                                         </p>
-                                        <input type="hidden" name="kode_mapel" value="{{ $kmp->kode_mapel }}">
+                                        <input type="hidden" name="kode_mapel" value="<?php echo e($kmp->kode_mapel); ?>">
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="input-group-prepend">
@@ -56,11 +54,11 @@
                                             <input type='file' name="cover" id="cover" />
                                             <img id="image_upload_preview" class="rounded gambar" />
                                         </div>
-                                        @if ($errors->has('cover'))
+                                        <?php if($errors->has('cover')): ?>
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('cover') }}</strong>
+                                            <strong><?php echo e($errors->first('cover')); ?></strong>
                                         </span>
-                                        @endif
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -101,10 +99,10 @@
     </form>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('scriptcss')
+<?php $__env->startSection('scriptcss'); ?>
 <!-- include summernote css/js -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 
@@ -118,9 +116,9 @@
         height: auto;
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scriptjs')
+<?php $__env->startSection('scriptjs'); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script>
     $(document).ready(function () {
@@ -197,10 +195,11 @@ function readURL(input) {
     });
 </script>
 
-@if($pesan_update = Session::get('success_update_materi'))
+<?php if($pesan_update = Session::get('success_update_materi')): ?>
 <script>
     berhasilUpdateMateri()
 
 </script>
-@endif
-@endsection
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mentor.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/wahyu/Desktop/mozart-elearning/resources/views/mentor/pages/materi/materi_upload.blade.php ENDPATH**/ ?>

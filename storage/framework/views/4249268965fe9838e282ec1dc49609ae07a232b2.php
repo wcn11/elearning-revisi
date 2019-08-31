@@ -1,25 +1,25 @@
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title>{{ config('app.name', 'Mozart') }} | Master</title>
+    <title><?php echo e(config('app.name', 'Mozart')); ?> | Master</title>
   <!-- Custom fonts for this template-->
-  <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="<?php echo e(asset('vendor/fontawesome-free/css/all.min.css')); ?>" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{ URL::to('bootstrap/dist/css/bootstrap.min.css') }}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="{{ asset('css/animate.css') }}" rel="stylesheet"  type="text/css">
+  <link href="<?php echo e(asset('css/sb-admin-2.min.css')); ?>" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo e(URL::to('bootstrap/dist/css/bootstrap.min.css')); ?>" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="<?php echo e(asset('css/animate.css')); ?>" rel="stylesheet"  type="text/css">
 
-  <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+  <link href="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet">
 </head>
 <style>
   .icon-colored{
@@ -34,19 +34,19 @@
       background-image:linear-gradient(180deg,#56bb7a 10%,#1ea26e 100%)
       }
 </style>
-@yield('scriptcss')
+<?php echo $__env->yieldContent('scriptcss'); ?>
 <body id="page-top">
 
-    @if(Session::has("belum_verifikasi"))
+    <?php if(Session::has("belum_verifikasi")): ?>
     <div class="alert alert-danger alert-dismissible fade show mb-0 text-center alert-konfirmasi" role="alert">
         <strong>E-mail belum dikonfirmasi!</strong> Anda Harus Segera Mengkonfirmasi Alamat Email.
         <a href="javascript:void(0)" class="font-weight-bold text-danger btn-kirim-email">Kirim ulang</a> E-mail Konfirmasi.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button> @csrf
-        <input type="hidden" name="email_mentor" value="{{ Auth::guard('master')->user()->email }}">
+        </button> <?php echo csrf_field(); ?>
+        <input type="hidden" name="email_mentor" value="<?php echo e(Auth::guard('master')->user()->email); ?>">
     </div>
-  @endif
+  <?php endif; ?>
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -67,7 +67,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-      <a class="nav-link" href="{{ route('master.dashboard') }}">
+      <a class="nav-link" href="<?php echo e(route('master.dashboard')); ?>">
           <img src="https://img.icons8.com/color/48/000000/home.png" class="icon-colored">
           <span>Dashboard</span></a>
       </li>
@@ -175,8 +175,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::guard('master')->user()->username }}</span>
-                <img class="img-profile rounded-circle" src="{{ url('/images/user/admin.jpg') }}">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo e(Auth::guard('master')->user()->username); ?></span>
+                <img class="img-profile rounded-circle" src="<?php echo e(url('/images/user/admin.jpg')); ?>">
               </a>
 
               <!-- Dropdown - User Information -->
@@ -197,7 +197,7 @@
 
         </nav>
         <!-- End of Topbar -->
-        @yield('main-content')
+        <?php echo $__env->yieldContent('main-content'); ?>
 
       </div>
       <!-- End of Main Content -->
@@ -236,8 +236,8 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="javascript::void()" onclick="event.preventDefault();document.getElementById('logout').submit();">Logout</a>
-          <form id="logout" action="{{ route('master.logout') }}" method="POST">
-            @csrf
+          <form id="logout" action="<?php echo e(route('master.logout')); ?>" method="POST">
+            <?php echo csrf_field(); ?>
           </form>
         </div>
       </div>
@@ -245,7 +245,7 @@
   </div>
 
 
-  {{-- MODAL --}}
+  
 
 <div class="modal fade  modal-ganti-password" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -261,7 +261,7 @@
                 <div class="card-body">
 
                 <div class="form-group row">
-                    <label for="oldPassword" class="col-md-12 col-form-label text-left">{{ __('Password lama') }}</label>
+                    <label for="oldPassword" class="col-md-12 col-form-label text-left"><?php echo e(__('Password lama')); ?></label>
 
                     <span class="password-salah w-100 text-danger text-center">Password yang anda masukkan saat ini salah</span>
                     <div class="col-md-12">
@@ -271,17 +271,17 @@
                 </div>
                 <hr>
                 <div class="form-group row">
-                    <label for="password" class="col-md-12 col-form-label text-left">{{ __('Password baru') }}</label>
+                    <label for="password" class="col-md-12 col-form-label text-left"><?php echo e(__('Password baru')); ?></label>
 
                     <span class=" w-100 text-danger text-center password_sama text-center">Password baru anda tidak boleh sama dengan password lama anda!</span>
                     <span class=" password_tidak_sama w-100 text-danger password_tidak_sama text-center">Password baru anda tidak sama dengan password Konfirmasi!</span>
                     <div class="col-md-12">
-                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password_baru" required>
+                        <input id="password" type="password" class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" name="password_baru" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="password-confirm" class="col-md-12 col-form-label text-left">{{ __('Konfirmasi password baru') }}</label>
+                    <label for="password-confirm" class="col-md-12 col-form-label text-left"><?php echo e(__('Konfirmasi password baru')); ?></label>
 
                     <div class="col-md-12">
                         <input id="password_confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -291,7 +291,8 @@
                 <div class="form-group row mb-0">
                     <div class="col-md-12 offset-md-12">
                         <button type="button" class="btn btn-info btn-ganti-password">
-                                    {{ __('Ganti Password') }}
+                                    <?php echo e(__('Ganti Password')); ?>
+
                                 </button>
                     </div>
                 </div>
@@ -302,18 +303,18 @@
 </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+  <script src="<?php echo e(asset('vendor/jquery/jquery.min.js')); ?>"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="<?php echo e(asset('vendor/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-  <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="<?php echo e(asset('vendor/datatables/jquery.dataTables.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
 
   <!-- Core plugin JavaScript-->
-  {{-- <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script> --}}
+  
 
   <!-- Custom scripts for all pages-->
-  <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+  <script src="<?php echo e(asset('js/sb-admin-2.min.js')); ?>"></script>
 <script>
 
 $(".btn-ganti-password").click(function() {
@@ -330,7 +331,7 @@ $.ajaxSetup({
 
 $.ajax({
     type: "post",
-    url: "{{ url('/master/password/change') }}",
+    url: "<?php echo e(url('/master/password/change')); ?>",
     data: {
         current_password: $("[name='current_password']").val(),
         password_baru: $("[name='password_baru']").val(),
@@ -371,7 +372,7 @@ $.ajax({
 </script>
 
 
-  @yield('scriptjs')
+  <?php echo $__env->yieldContent('scriptjs'); ?>
 </body>
 </html>
 
@@ -379,82 +380,5 @@ $.ajax({
 
 
 
-{{-- <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }} :: Master</title>
-
-    <!-- Scripts -->
-	<script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-<div id="app">
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @if (Auth::guard('master')->guest())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('master.login') }}">{{ __('Login') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('master.register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::guard('master')->user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('master.logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('master.logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <main class="py-4">
-        @yield('content')
-    </main>
-</div>
-</body>
-</html> --}}
+<?php /**PATH /home/wahyu/Desktop/mozart-elearning/resources/views/master/layouts/app.blade.php ENDPATH**/ ?>

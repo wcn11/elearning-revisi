@@ -1,7 +1,4 @@
-@extends('mentor.layouts.app')
-
-
-@section('main-content')
+<?php $__env->startSection('main-content'); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -32,26 +29,26 @@
 
     <div class="tab-content" id="pills-tabContent">
 
-        {{-- KELAS 10 --}}
+        
         <div class="tab-pane fade show active" id="pills-10" role="tabpanel" aria-labelledby="pills-10-tab">
 
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    @foreach($js10 as $j10)
-                    <a class="nav-item nav-link" id="nav-{{ $j10->kode_mentor_pelajaran }}-tab" data-toggle="tab"
-                        href="#nav-{{ $j10->kode_mentor_pelajaran }}">{{ $j10->mp_ke_mapel->nama_pelajaran }}</a>
-                    @endforeach
+                    <?php $__currentLoopData = $js10; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a class="nav-item nav-link" id="nav-<?php echo e($j10->kode_mentor_pelajaran); ?>-tab" data-toggle="tab"
+                        href="#nav-<?php echo e($j10->kode_mentor_pelajaran); ?>"><?php echo e($j10->mp_ke_mapel->nama_pelajaran); ?></a>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </nav>
 
             <div class="tab-content" id="nav-tabContent p-4">
-                @foreach ($js10 as $j10)
-                <div class="tab-pane fade" id="nav-{{ $j10->kode_mentor_pelajaran }}" role="tabpanel">
+                <?php $__currentLoopData = $js10; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="tab-pane fade" id="nav-<?php echo e($j10->kode_mentor_pelajaran); ?>" role="tabpanel">
 
-                    {{-- BUAT SOAL --}}
+                    
                     <div class="p-2 text-center">
                         <button type="button" class="btn btn-info btn-buat-soal m-3"
-                            data-id="{{ $j10->kode_mentor_pelajaran }}"><i class="fas fa-plus"></i> Buat
+                            data-id="<?php echo e($j10->kode_mentor_pelajaran); ?>"><i class="fas fa-plus"></i> Buat
                             soal</button>
                     </div>
 
@@ -60,16 +57,16 @@
                         <div class="card-body">
                             <div class="table-responsive w-100" style="overflow:hidden;">
 
-                                <form class="form form-tambah-soal-{{ $j10->kode_mentor_pelajaran }}"
-                                    action="{{ route('mentor.question_create_title') }}" method="POST">
-                                    @csrf
+                                <form class="form form-tambah-soal-<?php echo e($j10->kode_mentor_pelajaran); ?>"
+                                    action="<?php echo e(route('mentor.question_create_title')); ?>" method="POST">
+                                    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="kode_mentor_pelajaran"
-                                        value="{{ $j10->kode_mentor_pelajaran }}">
+                                        value="<?php echo e($j10->kode_mentor_pelajaran); ?>">
                                     <div class="form-group">
                                         <label for="judul">Judul Soal<span class="text-danger">*</span></label>
                                         <input type="text" name="judul"
-                                            class="form-control judul-{{ $j10->kode_mentor_pelajaran }}"
-                                            value="{{ old('judul') }}"
+                                            class="form-control judul-<?php echo e($j10->kode_mentor_pelajaran); ?>"
+                                            value="<?php echo e(old('judul')); ?>"
                                             placeholder="contoh : Quiz pengenalan ekologi sistem pangan" required>
                                         <div class="invalid-feedback invalid-judul">
                                             Harap isi judul soal.
@@ -79,9 +76,9 @@
                                         <label for="kode_mapel">Mata Pelajaran<span class="text-danger">*</span></label>
                                         <br>
                                         <span
-                                            class="badge badge-success p-2">{{ $j10->mp_ke_mapel->nama_pelajaran }}</span>
-                                        <input type="hidden" name="kode_mapel" value="{{ $j10->kode_mapel }}"
-                                            class="kode_mapel-{{ $j10->kode_mentor_pelajaran }}">
+                                            class="badge badge-success p-2"><?php echo e($j10->mp_ke_mapel->nama_pelajaran); ?></span>
+                                        <input type="hidden" name="kode_mapel" value="<?php echo e($j10->kode_mapel); ?>"
+                                            class="kode_mapel-<?php echo e($j10->kode_mentor_pelajaran); ?>">
 
                                     </div>
 
@@ -90,7 +87,7 @@
                                                 class="text-danger">*</span></label>
                                         <span id="pesan_error" class="text-danger"></span>
                                         <input type="number" name="jumlah_soal"
-                                            class="form-control jumlah_soal-{{ $j10->kode_mentor_pelajaran }}" min="5"
+                                            class="form-control jumlah_soal-<?php echo e($j10->kode_mentor_pelajaran); ?>" min="5"
                                             max="20" value="5" id="jumlah_soal">
                                     </div>
 
@@ -110,7 +107,7 @@
                                                             class="fas fa-calendar-alt"></i></div>
                                                 </div>
                                                 <input type="date" name="tanggal_mulai"
-                                                    class="form-control tanggal_mulai-{{ $j10->kode_mentor_pelajaran }}"
+                                                    class="form-control tanggal_mulai-<?php echo e($j10->kode_mentor_pelajaran); ?>"
                                                     placeholder="tanggal mulai" required><br>
 
                                             </div>
@@ -122,7 +119,7 @@
                                                             class="fas fa-clock"></i></div>
                                                 </div>
                                                 <input type="text" name="jam_mulai"
-                                                    class="form-control clockpicker jam_mulai-{{ $j10->kode_mentor_pelajaran }}"
+                                                    class="form-control clockpicker jam_mulai-<?php echo e($j10->kode_mentor_pelajaran); ?>"
                                                     data-placement="bottom" placeholder="waktu mulai"
                                                     data-autoclose="true" readonly required>
                                             </div>
@@ -134,7 +131,7 @@
                                                             class="fas fa-calendar-day"></i></div>
                                                 </div>
                                                 <input type="date" name="tanggal_selesai"
-                                                    class="form-control tanggal_selesai-{{ $j10->kode_mentor_pelajaran }}"
+                                                    class="form-control tanggal_selesai-<?php echo e($j10->kode_mentor_pelajaran); ?>"
                                                     placeholder="tanggal selesai" required>
                                             </div>
 
@@ -145,13 +142,13 @@
                                                             class="fas fa-stopwatch"></i></div>
                                                 </div>
                                                 <input type="text" name="jam_selesai"
-                                                    class="form-control clockpicker jam_selesai-{{ $j10->kode_mentor_pelajaran }}"
+                                                    class="form-control clockpicker jam_selesai-<?php echo e($j10->kode_mentor_pelajaran); ?>"
                                                     data-placement="bottom" placeholder="waktu selesai"
                                                     data-autoclose="true" readonly required>
                                             </div>
                                         </div>
                                         <button class="btn btn-info btn-tambah-soal" type="button"
-                                            data-id="{{ $j10->kode_mentor_pelajaran }}"><i class="fas fa-plus"></i>
+                                            data-id="<?php echo e($j10->kode_mentor_pelajaran); ?>"><i class="fas fa-plus"></i>
                                             submit</button>
                                     </div>
 
@@ -159,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- END BUAT SOAL --}}
+                    
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
@@ -177,64 +174,64 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($j10->mp_ke_js as $mpks)
+                                <?php $__currentLoopData = $j10->mp_ke_js; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mpks): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="text-center">
-                                    <td>{{ $mpks->judul }}</td>
-                                    <td>{{ $mpks->mapel_ke_soal->nama_pelajaran }}</td>
+                                    <td><?php echo e($mpks->judul); ?></td>
+                                    <td><?php echo e($mpks->mapel_ke_soal->nama_pelajaran); ?></td>
                                     <td>10</td>
-                                    <td>{{ $mpks->jumlah_soal }}</td>
-                                    <td>{{ $mpks->tanggal_mulai }}</td>
-                                    <td>{{ $mpks->tanggal_selesai }}</td>
-                                    <td>{{ $mpks->dibuat }}</td>
-                                    <td>{{ $mpks->diupdate }}</td>
+                                    <td><?php echo e($mpks->jumlah_soal); ?></td>
+                                    <td><?php echo e($mpks->tanggal_mulai); ?></td>
+                                    <td><?php echo e($mpks->tanggal_selesai); ?></td>
+                                    <td><?php echo e($mpks->dibuat); ?></td>
+                                    <td><?php echo e($mpks->diupdate); ?></td>
                                     <td>
                                         <a class="btn btn-warning btn-edit"
-                                            href="{{ route('mentor.soal_edit',$mpks->kode_judul_soal) }}"><i
+                                            href="<?php echo e(route('mentor.soal_edit',$mpks->kode_judul_soal)); ?>"><i
                                                 class="fas fa-eye"></i> edit</a>
                                         <button class="btn btn-danger btn-hapus"
-                                            data-id="{{ $mpks->kode_judul_soal }}"><i class="fas fa-trash"></i>
+                                            data-id="<?php echo e($mpks->kode_judul_soal); ?>"><i class="fas fa-trash"></i>
                                             hapus</button>
                                         <button class="btn btn-success btn-modal-edit-judul"
-                                            data-id="{{ $mpks->kode_judul_soal }}"><i class="fas fa-tint-slash"></i>
+                                            data-id="<?php echo e($mpks->kode_judul_soal); ?>"><i class="fas fa-tint-slash"></i>
                                             edit
                                             judul</button>
-                                        <form action="{{ route('mentor.hapus_soal', $mpks->kode_judul_soal) }}"
-                                            class="form-hapus-{{ $mpks->kode_judul_soal }}" method="POST">
-                                            @csrf
+                                        <form action="<?php echo e(route('mentor.hapus_soal', $mpks->kode_judul_soal)); ?>"
+                                            class="form-hapus-<?php echo e($mpks->kode_judul_soal); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
         </div>
-        {{-- END KELAS 10 --}}
+        
 
-        {{-- KELAS 11--}}
+        
         <div class="tab-pane fade" id="pills-11" role="tabpanel" aria-labelledby="pills-11-tab">
 
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    @foreach($js11 as $j11)
-                    <a class="nav-item nav-link" id="nav-{{ $j11->kode_mentor_pelajaran }}-tab" data-toggle="tab"
-                        href="#nav-{{ $j11->kode_mentor_pelajaran }}">{{ $j11->mp_ke_mapel->nama_pelajaran }}</a>
-                    @endforeach
+                    <?php $__currentLoopData = $js11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j11): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a class="nav-item nav-link" id="nav-<?php echo e($j11->kode_mentor_pelajaran); ?>-tab" data-toggle="tab"
+                        href="#nav-<?php echo e($j11->kode_mentor_pelajaran); ?>"><?php echo e($j11->mp_ke_mapel->nama_pelajaran); ?></a>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </nav>
 
             <div class="tab-content" id="nav-tabContent p-4">
-                @foreach ($js11 as $j11)
-                <div class="tab-pane fade" id="nav-{{ $j11->kode_mentor_pelajaran }}" role="tabpanel">
+                <?php $__currentLoopData = $js11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j11): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="tab-pane fade" id="nav-<?php echo e($j11->kode_mentor_pelajaran); ?>" role="tabpanel">
 
-                    {{-- BUAT SOAL --}}
+                    
                     <div class="p-2 text-center">
                         <button type="button" class="btn btn-info btn-buat-soal m-3"
-                            data-id="{{ $j11->kode_mentor_pelajaran }}"><i class="fas fa-plus"></i> Buat
+                            data-id="<?php echo e($j11->kode_mentor_pelajaran); ?>"><i class="fas fa-plus"></i> Buat
                             soal</button>
                     </div>
 
@@ -243,16 +240,16 @@
                         <div class="card-body">
                             <div class="table-responsive w-100" style="overflow:hidden;">
 
-                                <form class="form form-tambah-soal-{{ $j11->kode_mentor_pelajaran }}"
-                                    action="{{ route('mentor.question_create_title') }}" method="POST">
-                                    @csrf
+                                <form class="form form-tambah-soal-<?php echo e($j11->kode_mentor_pelajaran); ?>"
+                                    action="<?php echo e(route('mentor.question_create_title')); ?>" method="POST">
+                                    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="kode_mentor_pelajaran"
-                                        value="{{ $j11->kode_mentor_pelajaran }}">
+                                        value="<?php echo e($j11->kode_mentor_pelajaran); ?>">
                                     <div class="form-group">
                                         <label for="judul">Judul Soal<span class="text-danger">*</span></label>
                                         <input type="text" name="judul"
-                                            class="form-control judul-{{ $j11->kode_mentor_pelajaran }}"
-                                            value="{{ old('judul') }}"
+                                            class="form-control judul-<?php echo e($j11->kode_mentor_pelajaran); ?>"
+                                            value="<?php echo e(old('judul')); ?>"
                                             placeholder="contoh : Quiz pengenalan ekologi sistem pangan" required>
                                         <div class="invalid-feedback invalid-judul">
                                             Harap isi judul soal.
@@ -262,9 +259,9 @@
                                         <label for="kode_mapel">Mata Pelajaran<span class="text-danger">*</span></label>
                                         <br>
                                         <span
-                                            class="badge badge-success p-2">{{ $j11->mp_ke_mapel->nama_pelajaran }}</span>
-                                        <input type="hidden" name="kode_mapel" value="{{ $j11->kode_mapel }}"
-                                            class="kode_mapel-{{ $j11->kode_mentor_pelajaran }}">
+                                            class="badge badge-success p-2"><?php echo e($j11->mp_ke_mapel->nama_pelajaran); ?></span>
+                                        <input type="hidden" name="kode_mapel" value="<?php echo e($j11->kode_mapel); ?>"
+                                            class="kode_mapel-<?php echo e($j11->kode_mentor_pelajaran); ?>">
 
                                     </div>
 
@@ -273,7 +270,7 @@
                                                 class="text-danger">*</span></label>
                                         <span id="pesan_error" class="text-danger"></span>
                                         <input type="number" name="jumlah_soal"
-                                            class="form-control jumlah_soal-{{ $j11->kode_mentor_pelajaran }}" min="5"
+                                            class="form-control jumlah_soal-<?php echo e($j11->kode_mentor_pelajaran); ?>" min="5"
                                             max="20" value="5" id="jumlah_soal">
                                     </div>
 
@@ -294,7 +291,7 @@
                                                             class="fas fa-calendar-alt"></i></div>
                                                 </div>
                                                 <input type="date" name="tanggal_mulai"
-                                                    class="form-control tanggal_mulai-{{ $j11->kode_mentor_pelajaran }}"
+                                                    class="form-control tanggal_mulai-<?php echo e($j11->kode_mentor_pelajaran); ?>"
                                                     placeholder="tanggal mulai" required><br>
 
                                             </div>
@@ -306,7 +303,7 @@
                                                             class="fas fa-clock"></i></div>
                                                 </div>
                                                 <input type="text" name="jam_mulai"
-                                                    class="form-control clockpicker jam_mulai-{{ $j11->kode_mentor_pelajaran }}"
+                                                    class="form-control clockpicker jam_mulai-<?php echo e($j11->kode_mentor_pelajaran); ?>"
                                                     data-placement="bottom" placeholder="waktu mulai"
                                                     data-autoclose="true" readonly required>
                                             </div>
@@ -318,7 +315,7 @@
                                                             class="fas fa-calendar-day"></i></div>
                                                 </div>
                                                 <input type="date" name="tanggal_selesai"
-                                                    class="form-control tanggal_selesai-{{ $j11->kode_mentor_pelajaran }}"
+                                                    class="form-control tanggal_selesai-<?php echo e($j11->kode_mentor_pelajaran); ?>"
                                                     placeholder="tanggal selesai" required>
                                             </div>
 
@@ -329,13 +326,13 @@
                                                             class="fas fa-stopwatch"></i></div>
                                                 </div>
                                                 <input type="text" name="jam_selesai"
-                                                    class="form-control clockpicker jam_selesai-{{ $j11->kode_mentor_pelajaran }}"
+                                                    class="form-control clockpicker jam_selesai-<?php echo e($j11->kode_mentor_pelajaran); ?>"
                                                     data-placement="bottom" placeholder="waktu selesai"
                                                     data-autoclose="true" readonly required>
                                             </div>
                                         </div>
                                         <button class="btn btn-info btn-tambah-soal" type="button"
-                                            data-id="{{ $j11->kode_mentor_pelajaran }}"><i class="fas fa-plus"></i>
+                                            data-id="<?php echo e($j11->kode_mentor_pelajaran); ?>"><i class="fas fa-plus"></i>
                                             submit</button>
                                     </div>
 
@@ -343,7 +340,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- END BUAT SOAL --}}
+                    
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
@@ -361,63 +358,63 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($j11->mp_ke_js as $mpks)
+                                <?php $__currentLoopData = $j11->mp_ke_js; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mpks): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="text-center">
-                                    <td>{{ $mpks->judul }}</td>
-                                    <td>{{ $mpks->mapel_ke_soal->nama_pelajaran }}</td>
+                                    <td><?php echo e($mpks->judul); ?></td>
+                                    <td><?php echo e($mpks->mapel_ke_soal->nama_pelajaran); ?></td>
                                     <td>11</td>
-                                    <td>{{ $mpks->jumlah_soal }}</td>
-                                    <td>{{ $mpks->tanggal_mulai }}</td>
-                                    <td>{{ $mpks->tanggal_selesai }}</td>
-                                    <td>{{ $mpks->dibuat }}</td>
-                                    <td>{{ $mpks->diupdate }}</td>
+                                    <td><?php echo e($mpks->jumlah_soal); ?></td>
+                                    <td><?php echo e($mpks->tanggal_mulai); ?></td>
+                                    <td><?php echo e($mpks->tanggal_selesai); ?></td>
+                                    <td><?php echo e($mpks->dibuat); ?></td>
+                                    <td><?php echo e($mpks->diupdate); ?></td>
                                     <td>
                                         <a class="btn btn-warning btn-edit"
-                                            href="{{ route('mentor.soal_edit',$mpks->kode_judul_soal) }}"><i
+                                            href="<?php echo e(route('mentor.soal_edit',$mpks->kode_judul_soal)); ?>"><i
                                                 class="fas fa-eye"></i> edit</a>
                                         <button class="btn btn-danger btn-hapus"
-                                            data-id="{{ $mpks->kode_judul_soal }}"><i class="fas fa-trash"></i>
+                                            data-id="<?php echo e($mpks->kode_judul_soal); ?>"><i class="fas fa-trash"></i>
                                             hapus</button>
                                         <button class="btn btn-success btn-modal-edit-judul"
-                                            data-id="{{ $mpks->kode_judul_soal }}"><i class="fas fa-tint-slash"></i>
+                                            data-id="<?php echo e($mpks->kode_judul_soal); ?>"><i class="fas fa-tint-slash"></i>
                                             edit
                                             judul</button>
-                                        <form action="{{ route('mentor.hapus_soal', $mpks->kode_judul_soal) }}"
-                                            class="form-hapus-{{ $mpks->kode_judul_soal }}" method="POST">
-                                            @csrf
+                                        <form action="<?php echo e(route('mentor.hapus_soal', $mpks->kode_judul_soal)); ?>"
+                                            class="form-hapus-<?php echo e($mpks->kode_judul_soal); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
         </div>
-        {{-- END KELAS 11 --}}
+        
 
-        {{-- KELAS 12 --}}
+        
         <div class="tab-pane fade" id="pills-12" role="tabpanel" aria-labelledby="pills-12-tab">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    @foreach($js12 as $j12)
-                    <a class="nav-item nav-link" id="nav-{{ $j12->kode_mentor_pelajaran }}-tab" data-toggle="tab"
-                        href="#nav-{{ $j12->kode_mentor_pelajaran }}">{{ $j12->mp_ke_mapel->nama_pelajaran }}</a>
-                    @endforeach
+                    <?php $__currentLoopData = $js12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j12): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a class="nav-item nav-link" id="nav-<?php echo e($j12->kode_mentor_pelajaran); ?>-tab" data-toggle="tab"
+                        href="#nav-<?php echo e($j12->kode_mentor_pelajaran); ?>"><?php echo e($j12->mp_ke_mapel->nama_pelajaran); ?></a>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </nav>
 
             <div class="tab-content" id="nav-tabContent p-4">
-                @foreach ($js12 as $j12)
-                <div class="tab-pane fade" id="nav-{{ $j12->kode_mentor_pelajaran }}" role="tabpanel">
+                <?php $__currentLoopData = $js12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j12): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="tab-pane fade" id="nav-<?php echo e($j12->kode_mentor_pelajaran); ?>" role="tabpanel">
 
-                    {{-- BUAT SOAL --}}
+                    
                     <div class="p-2 text-center">
                         <button type="button" class="btn btn-info btn-buat-soal m-3"
-                            data-id="{{ $j12->kode_mentor_pelajaran }}"><i class="fas fa-plus"></i> Buat
+                            data-id="<?php echo e($j12->kode_mentor_pelajaran); ?>"><i class="fas fa-plus"></i> Buat
                             soal</button>
                     </div>
 
@@ -426,16 +423,16 @@
                         <div class="card-body">
                             <div class="table-responsive w-100" style="overflow:hidden;">
 
-                                <form class="form form-tambah-soal-{{ $j12->kode_mentor_pelajaran }}"
-                                    action="{{ route('mentor.question_create_title') }}" method="POST">
-                                    @csrf
+                                <form class="form form-tambah-soal-<?php echo e($j12->kode_mentor_pelajaran); ?>"
+                                    action="<?php echo e(route('mentor.question_create_title')); ?>" method="POST">
+                                    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="kode_mentor_pelajaran"
-                                        value="{{ $j12->kode_mentor_pelajaran }}">
+                                        value="<?php echo e($j12->kode_mentor_pelajaran); ?>">
                                     <div class="form-group">
                                         <label for="judul">Judul Soal<span class="text-danger">*</span></label>
                                         <input type="text" name="judul"
-                                            class="form-control judul-{{ $j12->kode_mentor_pelajaran }}"
-                                            value="{{ old('judul') }}"
+                                            class="form-control judul-<?php echo e($j12->kode_mentor_pelajaran); ?>"
+                                            value="<?php echo e(old('judul')); ?>"
                                             placeholder="contoh : Quiz pengenalan ekologi sistem pangan" required>
                                         <div class="invalid-feedback invalid-judul">
                                             Harap isi judul soal.
@@ -445,9 +442,9 @@
                                         <label for="kode_mapel">Mata Pelajaran<span class="text-danger">*</span></label>
                                         <br>
                                         <span
-                                            class="badge badge-success p-2">{{ $j12->mp_ke_mapel->nama_pelajaran }}</span>
-                                        <input type="hidden" name="kode_mapel" value="{{ $j12->kode_mapel }}"
-                                            class="kode_mapel-{{ $j12->kode_mentor_pelajaran }}">
+                                            class="badge badge-success p-2"><?php echo e($j12->mp_ke_mapel->nama_pelajaran); ?></span>
+                                        <input type="hidden" name="kode_mapel" value="<?php echo e($j12->kode_mapel); ?>"
+                                            class="kode_mapel-<?php echo e($j12->kode_mentor_pelajaran); ?>">
 
                                     </div>
 
@@ -456,7 +453,7 @@
                                                 class="text-danger">*</span></label>
                                         <span id="pesan_error" class="text-danger"></span>
                                         <input type="number" name="jumlah_soal"
-                                            class="form-control jumlah_soal-{{ $j12->kode_mentor_pelajaran }}" min="5"
+                                            class="form-control jumlah_soal-<?php echo e($j12->kode_mentor_pelajaran); ?>" min="5"
                                             max="20" value="5" id="jumlah_soal">
                                     </div>
 
@@ -477,7 +474,7 @@
                                                             class="fas fa-calendar-alt"></i></div>
                                                 </div>
                                                 <input type="date" name="tanggal_mulai"
-                                                    class="form-control tanggal_mulai-{{ $j12->kode_mentor_pelajaran }}"
+                                                    class="form-control tanggal_mulai-<?php echo e($j12->kode_mentor_pelajaran); ?>"
                                                     placeholder="tanggal mulai" required><br>
 
                                             </div>
@@ -489,7 +486,7 @@
                                                             class="fas fa-clock"></i></div>
                                                 </div>
                                                 <input type="text" name="jam_mulai"
-                                                    class="form-control clockpicker jam_mulai-{{ $j12->kode_mentor_pelajaran }}"
+                                                    class="form-control clockpicker jam_mulai-<?php echo e($j12->kode_mentor_pelajaran); ?>"
                                                     data-placement="bottom" placeholder="waktu mulai"
                                                     data-autoclose="true" readonly required>
                                             </div>
@@ -501,7 +498,7 @@
                                                             class="fas fa-calendar-day"></i></div>
                                                 </div>
                                                 <input type="date" name="tanggal_selesai"
-                                                    class="form-control tanggal_selesai-{{ $j12->kode_mentor_pelajaran }}"
+                                                    class="form-control tanggal_selesai-<?php echo e($j12->kode_mentor_pelajaran); ?>"
                                                     placeholder="tanggal selesai" required>
                                             </div>
 
@@ -512,13 +509,13 @@
                                                             class="fas fa-stopwatch"></i></div>
                                                 </div>
                                                 <input type="text" name="jam_selesai"
-                                                    class="form-control clockpicker jam_selesai-{{ $j12->kode_mentor_pelajaran }}"
+                                                    class="form-control clockpicker jam_selesai-<?php echo e($j12->kode_mentor_pelajaran); ?>"
                                                     data-placement="bottom" placeholder="waktu selesai"
                                                     data-autoclose="true" readonly required>
                                             </div>
                                         </div>
                                         <button class="btn btn-info btn-tambah-soal" type="button"
-                                            data-id="{{ $j12->kode_mentor_pelajaran }}"><i class="fas fa-plus"></i>
+                                            data-id="<?php echo e($j12->kode_mentor_pelajaran); ?>"><i class="fas fa-plus"></i>
                                             submit</button>
                                     </div>
 
@@ -526,7 +523,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- END BUAT SOAL --}}
+                    
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
@@ -544,49 +541,49 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($j12->mp_ke_js as $mpks)
+                                <?php $__currentLoopData = $j12->mp_ke_js; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mpks): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="text-center">
-                                    <td>{{ $mpks->judul }}</td>
-                                    <td>{{ $mpks->mapel_ke_soal->nama_pelajaran }}</td>
+                                    <td><?php echo e($mpks->judul); ?></td>
+                                    <td><?php echo e($mpks->mapel_ke_soal->nama_pelajaran); ?></td>
                                     <td>12</td>
-                                    <td>{{ $mpks->jumlah_soal }}</td>
-                                    <td>{{ $mpks->tanggal_mulai }}</td>
-                                    <td>{{ $mpks->tanggal_selesai }}</td>
-                                    <td>{{ $mpks->dibuat }}</td>
-                                    <td>{{ $mpks->diupdate }}</td>
+                                    <td><?php echo e($mpks->jumlah_soal); ?></td>
+                                    <td><?php echo e($mpks->tanggal_mulai); ?></td>
+                                    <td><?php echo e($mpks->tanggal_selesai); ?></td>
+                                    <td><?php echo e($mpks->dibuat); ?></td>
+                                    <td><?php echo e($mpks->diupdate); ?></td>
                                     <td>
                                         <a class="btn btn-warning btn-edit"
-                                            href="{{ route('mentor.soal_edit',$mpks->kode_judul_soal) }}"><i
+                                            href="<?php echo e(route('mentor.soal_edit',$mpks->kode_judul_soal)); ?>"><i
                                                 class="fas fa-eye"></i> edit</a>
                                         <button class="btn btn-danger btn-hapus"
-                                            data-id="{{ $mpks->kode_judul_soal }}"><i class="fas fa-trash"></i>
+                                            data-id="<?php echo e($mpks->kode_judul_soal); ?>"><i class="fas fa-trash"></i>
                                             hapus</button>
                                         <button class="btn btn-success btn-modal-edit-judul"
-                                            data-id="{{ $mpks->kode_judul_soal }}"><i class="fas fa-tint-slash"></i>
+                                            data-id="<?php echo e($mpks->kode_judul_soal); ?>"><i class="fas fa-tint-slash"></i>
                                             edit
                                             judul</button>
-                                        <form action="{{ route('mentor.hapus_soal', $mpks->kode_judul_soal) }}"
-                                            class="form-hapus-{{ $mpks->kode_judul_soal }}" method="POST">
-                                            @csrf
+                                        <form action="<?php echo e(route('mentor.hapus_soal', $mpks->kode_judul_soal)); ?>"
+                                            class="form-hapus-<?php echo e($mpks->kode_judul_soal); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
-        {{-- END KELAS 12 --}}
+        
     </div>
 
 
 </div>
 
 
-{{--  MODAL  --}}
+
 
 <div class="modal fade bd-example-modal-xl modal-hapus" tabindex="-1" role="dialog"
     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -610,14 +607,14 @@
                     data-dismiss="modal">Hapus</button>
                 <button type="button" class="btn btn-info btn-tutup" data-dismiss="modal">Tutup</button>
                 <form id="form-hapus" action="#" method="post">
-                    @csrf
+                    <?php echo csrf_field(); ?>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-{{-- edit ini !! --}}
+
 
 <div class="modal fade modal-edit-judul" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
@@ -627,8 +624,8 @@
             </div>
             <div class="modal-body">
 
-                <form class="form form-update-judul" action="{{ route('mentor.question_update_title') }}" method="POST">
-                    @csrf
+                <form class="form form-update-judul" action="<?php echo e(route('mentor.question_update_title')); ?>" method="POST">
+                    <?php echo csrf_field(); ?>
                     <input type="hidden" name="kode_judul_soal">
                     <div class="form-group">
                         <label for="judul">Judul Soal<span class="text-danger">*</span></label>
@@ -640,11 +637,12 @@
                     <div class="form-group">
                         <label for="kode_mapel">Mata Pelajaran<span class="text-danger">*</span></label>
                         <select class="form-control" name="kode_mentor_pelajaran_update"
-                            value="{{ old('kode_mapel_update') }}" required>
-                            @foreach ($mentor->m_ke_mp as $p)
-                            <option value="{{ $p->kode_mentor_pelajaran }}">{{ $p->mp_ke_mapel->nama_pelajaran }}
+                            value="<?php echo e(old('kode_mapel_update')); ?>" required>
+                            <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($p->kode_mentor_pelajaran); ?>"><?php echo e($p->mp_ke_mapel->nama_pelajaran); ?>
+
                             </option>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
 
@@ -712,12 +710,12 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scriptcss')
+<?php $__env->startSection('scriptcss'); ?>
 
-<link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-<link href="{{ asset('css/jquery-clockpicker.min.css') }}" rel="stylesheet">
+<link href="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet">
+<link href="<?php echo e(asset('css/jquery-clockpicker.min.css')); ?>" rel="stylesheet">
 <style>
     .clockpicker-popover {
         z-index: 9999;
@@ -729,17 +727,17 @@
         opacity: 1;
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scriptjs')
+<?php $__env->startSection('scriptjs'); ?>
 <!-- Page level plugins -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="<?php echo e(asset('vendor/datatables/jquery.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
 
 <!-- Page level custom scripts -->
-<script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+<script src="<?php echo e(asset('js/demo/datatables-demo.js')); ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<script src="{{ asset('js/jquery-clockpicker.min.js') }}"></script>
+<script src="<?php echo e(asset('js/jquery-clockpicker.min.js')); ?>"></script>
 <script type="text/javascript">
     $('.clockpicker').clockpicker(
         // {
@@ -967,7 +965,7 @@
 
             $.ajax({
                 type: "post",
-                url: "{{ url('mentor/soal/datapersoal') }}",
+                url: "<?php echo e(url('mentor/soal/datapersoal')); ?>",
                 data: {
                     id: id
                 },
@@ -1028,7 +1026,7 @@
             var id = $(this).attr("data-id");
             // $("[name='kode_js']").val("");
             // $("[name='kode_js']").val(id);
-            // $(".form-hapus").attr("href", "{{ url('mentor/soal/hapus/') }}" + "/" + id);
+            // $(".form-hapus").attr("href", "<?php echo e(url('mentor/soal/hapus/')); ?>" + "/" + id);
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 text: "Seluruh data terhadap soal ini akan terhapus!",
@@ -1047,7 +1045,7 @@
     });
 </script>
 
-@if(Session::get('berhasil_update_judul'))
+<?php if(Session::get('berhasil_update_judul')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -1056,9 +1054,9 @@
     )
 
 </script>
-@endif
+<?php endif; ?>
 
-@if(Session::get('hapus_soal'))
+<?php if(Session::get('hapus_soal')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -1067,9 +1065,9 @@
     )
 
 </script>
-@endif
+<?php endif; ?>
 
-@if(Session::get('buat_soal'))
+<?php if(Session::get('buat_soal')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -1078,9 +1076,9 @@
     )
 
 </script>
-@endif
+<?php endif; ?>
 
-@if(Session::get('update_soal'))
+<?php if(Session::get('update_soal')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -1088,6 +1086,7 @@
         'success'
     )
 </script>
-@endif
+<?php endif; ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mentor.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/wahyu/Desktop/mozart-elearning/resources/views/mentor/pages/question/index.blade.php ENDPATH**/ ?>

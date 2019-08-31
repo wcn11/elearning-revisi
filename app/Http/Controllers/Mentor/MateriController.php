@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
 use DOMPDF;
 use App\Mentor;
+use App\Mentor_pelajaran;
 
 class MateriController extends Controller
 {
@@ -23,20 +24,22 @@ class MateriController extends Controller
     {
         $id_mentor = Auth::guard('mentor')->user()->id_mentor;
 
-        $mentor = Mentor::find($id_mentor);
+        // $mentor = Mentor::find($id_mentor);
 
-        return view('mentor.pages.materi.daftar_materi', ['mentor' => $mentor]);
+        $materi_10 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-10")->get();
+
+        $materi_11 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-11")->get();
+
+        $materi_12 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-12")->get();
+
+        return view('mentor.pages.materi.daftar_materi', compact("materi_10", "materi_11", "materi_12",));
     }
 
     public function tambah_materi(Request $request)
     {
-        $kode_mapel = $request->kode_mapel;
+        $kmp = Mentor_pelajaran::find($request->kmp);
 
-        $mapel = Pelajaran::find($kode_mapel);
-
-        $kmp = $request->kmp;
-
-        return view("mentor.pages.materi.materi_upload", compact("kode_mapel", "mapel", "kmp"));
+        return view("mentor.pages.materi.materi_upload", compact("kmp"));
     }
 
     public function ambil_data($kode_materi)

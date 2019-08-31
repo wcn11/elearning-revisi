@@ -1,7 +1,4 @@
-@extends('mentor.layouts.app')
-
-
-@section('main-content')
+<?php $__env->startSection('main-content'); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -9,11 +6,11 @@
     <h1 class="h3 mb-2 text-gray-800"></h1>
     <div class="col text-right mb-3 mt-3">
 
-        {{-- <button class="btn btn-dark btn-tambah"> <i class="fab fa-leanpub"></i> Tambah mata pelajaran</button> --}}
-        {{-- <button class="btn btn-info btn-edit-kuota" data-toggle="modal" data-target="#modal-edit-kuota"><i class="fas fa-book"></i> Edit Kuota Kelas</button> --}}
+        
+        
 
     </div>
-    {{-- data-target="#modal-pelajaran" data-toggle="modal" --}}
+    
     <!-- DataTales Exame -->
 
 
@@ -42,7 +39,7 @@
 
             <div class="tab-content" id="pills-tabContent">
 
-                {{-- KELAS 10 --}}
+                
                 <div class="tab-pane fade show active" id="pills-10" role="tabpanel" aria-labelledby="pills-10-tab">
 
                     <button class="btn btn-dark btn-tambah-10"> <i class="fab fa-leanpub"></i> Tambah mata
@@ -52,61 +49,61 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                @foreach ($mentor->m_ke_mp as $m)
-                                @if($m->kode_kelas == "KLS-10")
-                                <button class="nav-item nav-link" href="#nav-{{ $m->kode_mentor_pelajaran }}-KLS10"
+                                <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($m->kode_kelas == "KLS-10"): ?>
+                                <button class="nav-item nav-link" href="#nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS10"
                                     data-toggle="tab" role="tab">
-                                    {{ $m->mp_ke_mapel->nama_pelajaran }}</button>
-                                @endif
-                                @endforeach
+                                    <?php echo e($m->mp_ke_mapel->nama_pelajaran); ?></button>
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </nav>
 
                         <div class="tab-content" id="nav-tabContent">
-                            @foreach ($mentor->m_ke_mp as $m)
-                            <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}-KLS10" role="tabpanel"
+                            <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="tab-pane fade" id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS10" role="tabpanel"
                                 aria-labelledby="nav-KLS10-tab">
 
-                                <p class="p-2">Jumlah murid saat ini = {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
+                                <p class="p-2">Jumlah murid saat ini = <?php echo e($m->mp_ke_ms->count()); ?> / <?php echo e($m->kuota); ?></p>
                                 <div class="container p-3 text-center">
-                                    <button data-id="{{ $m->kode_mentor_pelajaran }}"
-                                        data-nama="{{ $m->mp_ke_mapel->nama_pelajaran }}"
+                                    <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                        data-nama="<?php echo e($m->mp_ke_mapel->nama_pelajaran); ?>"
                                         class="btn btn-outline-danger btn-hapus-pelajaran animated bounceInUp"><i
                                             class="fas fa-trash-alt"></i> Hapus</button>
-                                    <button data-id="{{ $m->kode_mentor_pelajaran }}"
+                                    <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
                                         class="btn btn-outline-secondary btn-edit animated bounceInUp"><i
                                             class="fas fa-edit"></i>
                                         Edit kuota</button>
 
-                                    <form class="form-hapus-{{ $m->kode_mentor_pelajaran }}"
-                                        action="{{ route('mentor.hapus_mapel', $m->kode_mentor_pelajaran) }}"
+                                    <form class="form-hapus-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                        action="<?php echo e(route('mentor.hapus_mapel', $m->kode_mentor_pelajaran)); ?>"
                                         method="post">
-                                        @csrf
-                                        <input type="hidden" name="kmp" value="{{ $m->kode_mentor_pelajaran }}">
+                                        <?php echo csrf_field(); ?>
+                                        <input type="hidden" name="kmp" value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                     </form>
 
-                                    <div class="edit-kuota-{{ $m->kode_mentor_pelajaran }} edit-kuota p-2">
+                                    <div class="edit-kuota-<?php echo e($m->kode_mentor_pelajaran); ?> edit-kuota p-2">
 
-                                        <form class="form-group form-update-kuota-{{ $m->kode_mentor_pelajaran }}"
-                                            action="{{ route('mentor.edit_kuota') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" value="{{ $m->mp_ke_ms->count() }}" name="jsc"
-                                                class="jsc-{{ $m->kode_mentor_pelajaran }}"
-                                                data-jsc="{{ $m->mp_ke_ms->count() }}">
+                                        <form class="form-group form-update-kuota-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                            action="<?php echo e(route('mentor.edit_kuota')); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <input type="hidden" value="<?php echo e($m->mp_ke_ms->count()); ?>" name="jsc"
+                                                class="jsc-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                                data-jsc="<?php echo e($m->mp_ke_ms->count()); ?>">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
-                                                    value="{{ $m->kode_mentor_pelajaran }}">
+                                                    value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
-                                                <span id="pesan_error-{{ $m->kode_mentor_pelajaran }}"
+                                                <span id="pesan_error-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     class="text-danger"></span>
                                                 <input type="number" name="kuota_baru"
-                                                    data-id="{{ $m->kode_mentor_pelajaran }}"
-                                                    min="{{ $m->mp_ke_ms->count() }}" max="150" value="{{ $m->kuota }}"
-                                                    class="form-control text-center w-100 kuota-baru-{{ $m->kode_mentor_pelajaran }}"
+                                                    data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                                    min="<?php echo e($m->mp_ke_ms->count()); ?>" max="150" value="<?php echo e($m->kuota); ?>"
+                                                    class="form-control text-center w-100 kuota-baru-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="{{ $m->kode_mentor_pelajaran }}"><i class="fas fa-upload"></i>
+                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -124,15 +121,18 @@
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>
-                                                    {{ App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    {{ App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    {{ App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Soal
                                                 </td>
                                             </tr>
@@ -140,13 +140,13 @@
                                     </table>
                                 </div>
                             </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
 
                 </div>
 
-                {{-- KELAS 11 --}}
+                
                 <div class="tab-pane fade" id="pills-11" role="tabpanel" aria-labelledby="pills-11-tab">
                     <button class="btn btn-dark btn-tambah-11"> <i class="fab fa-leanpub"></i> Tambah mata
                         pelajaran</button>
@@ -155,61 +155,61 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                @foreach ($mentor->m_ke_mp as $m)
-                                @if($m->kode_kelas == "KLS-11")
-                                <button class="nav-item nav-link" href="#nav-{{ $m->kode_mentor_pelajaran }}-KLS11"
-                                    id="nav-{{ $m->kode_mentor_pelajaran }}-tab" data-toggle="tab" role="tab">
-                                    {{ $m->mp_ke_mapel->nama_pelajaran }}</button>
-                                @endif
-                                @endforeach
+                                <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($m->kode_kelas == "KLS-11"): ?>
+                                <button class="nav-item nav-link" href="#nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS11"
+                                    id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-tab" data-toggle="tab" role="tab">
+                                    <?php echo e($m->mp_ke_mapel->nama_pelajaran); ?></button>
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </nav>
 
                         <div class="tab-content" id="nav-tabContent">
-                            @foreach ($mentor->m_ke_mp as $m)
-                            <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}-KLS11" role="tabpanel"
-                                aria-labelledby="nav-{{ $m->kode_mentor_pelajaran }}-{{$m->kode_kelas }}-{{ $m->kode_mapel }}-tab">
+                            <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="tab-pane fade" id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS11" role="tabpanel"
+                                aria-labelledby="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-<?php echo e($m->kode_kelas); ?>-<?php echo e($m->kode_mapel); ?>-tab">
 
-                                <p class="p-2">Jumlah murid saat ini = {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
+                                <p class="p-2">Jumlah murid saat ini = <?php echo e($m->mp_ke_ms->count()); ?> / <?php echo e($m->kuota); ?></p>
                                 <div class="container p-3 text-center">
-                                    <button data-id="{{ $m->kode_mentor_pelajaran }}"
-                                        data-nama="{{ $m->mp_ke_mapel->nama_pelajaran }}"
+                                    <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                        data-nama="<?php echo e($m->mp_ke_mapel->nama_pelajaran); ?>"
                                         class="btn btn-outline-danger btn-hapus-pelajaran animated bounceInUp"><i
                                             class="fas fa-trash-alt"></i> Hapus</button>
-                                    <button data-id="{{ $m->kode_mentor_pelajaran }}"
+                                    <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
                                         class="btn btn-outline-secondary btn-edit animated bounceInUp"><i
                                             class="fas fa-edit"></i>
                                         Edit kuota</button>
 
-                                    <form class="form-hapus-{{ $m->kode_mentor_pelajaran }}"
-                                        action="{{ route('mentor.hapus_mapel', $m->kode_mentor_pelajaran) }}"
+                                    <form class="form-hapus-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                        action="<?php echo e(route('mentor.hapus_mapel', $m->kode_mentor_pelajaran)); ?>"
                                         method="post">
-                                        @csrf
-                                        <input type="hidden" name="kmp" value="{{ $m->kode_mentor_pelajaran }}">
+                                        <?php echo csrf_field(); ?>
+                                        <input type="hidden" name="kmp" value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                     </form>
 
-                                    <div class="edit-kuota-{{ $m->kode_mentor_pelajaran }} edit-kuota p-2">
+                                    <div class="edit-kuota-<?php echo e($m->kode_mentor_pelajaran); ?> edit-kuota p-2">
 
-                                        <form class="form-group form-update-kuota-{{ $m->kode_mentor_pelajaran }}"
-                                            action="{{ route('mentor.edit_kuota') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" value="{{ $m->mp_ke_ms->count() }}" name="jsc"
-                                                class="jsc-{{ $m->kode_mentor_pelajaran }}"
-                                                data-jsc="{{ $m->mp_ke_ms->count() }}">
+                                        <form class="form-group form-update-kuota-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                            action="<?php echo e(route('mentor.edit_kuota')); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <input type="hidden" value="<?php echo e($m->mp_ke_ms->count()); ?>" name="jsc"
+                                                class="jsc-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                                data-jsc="<?php echo e($m->mp_ke_ms->count()); ?>">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
-                                                    value="{{ $m->kode_mentor_pelajaran }}">
+                                                    value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
-                                                <span id="pesan_error-{{ $m->kode_mentor_pelajaran }}"
+                                                <span id="pesan_error-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     class="text-danger"></span>
                                                 <input type="number" name="kuota_baru"
-                                                    data-id="{{ $m->kode_mentor_pelajaran }}"
-                                                    min="{{ $m->mp_ke_ms->count() }}" max="150" value="{{ $m->kuota }}"
-                                                    class="form-control text-center w-100 kuota-baru-{{ $m->kode_mentor_pelajaran }}"
+                                                    data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                                    min="<?php echo e($m->mp_ke_ms->count()); ?>" max="150" value="<?php echo e($m->kuota); ?>"
+                                                    class="form-control text-center w-100 kuota-baru-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="{{ $m->kode_mentor_pelajaran }}"><i class="fas fa-upload"></i>
+                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -227,15 +227,18 @@
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>
-                                                    {{ App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    {{ App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    {{ App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Soal
                                                 </td>
                                             </tr>
@@ -243,13 +246,13 @@
                                     </table>
                                 </div>
                             </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
 
                     </div>
                 </div>
 
-                {{-- KELAS 12 --}}
+                
                 <div class="tab-pane fade" id="pills-12" role="tabpanel" aria-labelledby="pills-12-tab">
                     <button class="btn btn-dark btn-tambah-12"> <i class="fab fa-leanpub"></i> Tambah mata
                         pelajaran</button>
@@ -258,61 +261,61 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                @foreach ($mentor->m_ke_mp as $m)
-                                @if($m->kode_kelas == "KLS-12")
-                                <button class="nav-item nav-link" href="#nav-{{ $m->kode_mentor_pelajaran }}-KLS12"
-                                    id="nav-{{ $m->kode_mentor_pelajaran }}-tab" data-toggle="tab" role="tab">
-                                    {{ $m->mp_ke_mapel->nama_pelajaran }}</button>
-                                @endif
-                                @endforeach
+                                <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($m->kode_kelas == "KLS-12"): ?>
+                                <button class="nav-item nav-link" href="#nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS12"
+                                    id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-tab" data-toggle="tab" role="tab">
+                                    <?php echo e($m->mp_ke_mapel->nama_pelajaran); ?></button>
+                                <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </nav>
 
 
                         <div class="tab-content" id="nav-tabContent">
-                            @foreach ($mentor->m_ke_mp as $m)
-                            <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}-KLS12" role="tabpanel">
+                            <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="tab-pane fade" id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS12" role="tabpanel">
 
-                                <p class="p-2">Jumlah murid saat ini = {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
+                                <p class="p-2">Jumlah murid saat ini = <?php echo e($m->mp_ke_ms->count()); ?> / <?php echo e($m->kuota); ?></p>
                                 <div class="container p-3 text-center">
-                                    <button data-id="{{ $m->kode_mentor_pelajaran }}"
-                                        data-nama="{{ $m->mp_ke_mapel->nama_pelajaran }}"
+                                    <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                        data-nama="<?php echo e($m->mp_ke_mapel->nama_pelajaran); ?>"
                                         class="btn btn-outline-danger btn-hapus-pelajaran animated bounceInUp"><i
                                             class="fas fa-trash-alt"></i> Hapus</button>
-                                    <button data-id="{{ $m->kode_mentor_pelajaran }}"
+                                    <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
                                         class="btn btn-outline-secondary btn-edit animated bounceInUp"><i
                                             class="fas fa-edit"></i>
                                         Edit kuota</button>
 
-                                    <form class="form-hapus-{{ $m->kode_mentor_pelajaran }}"
-                                        action="{{ route('mentor.hapus_mapel', $m->kode_mentor_pelajaran) }}"
+                                    <form class="form-hapus-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                        action="<?php echo e(route('mentor.hapus_mapel', $m->kode_mentor_pelajaran)); ?>"
                                         method="post">
-                                        @csrf
-                                        <input type="hidden" name="kmp" value="{{ $m->kode_mentor_pelajaran }}">
+                                        <?php echo csrf_field(); ?>
+                                        <input type="hidden" name="kmp" value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                     </form>
 
-                                    <div class="edit-kuota-{{ $m->kode_mentor_pelajaran }} edit-kuota p-2">
+                                    <div class="edit-kuota-<?php echo e($m->kode_mentor_pelajaran); ?> edit-kuota p-2">
 
-                                        <form class="form-group form-update-kuota-{{ $m->kode_mentor_pelajaran }}"
-                                            action="{{ route('mentor.edit_kuota') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" value="{{ $m->mp_ke_ms->count() }}" name="jsc"
-                                                class="jsc-{{ $m->kode_mentor_pelajaran }}"
-                                                data-jsc="{{ $m->mp_ke_ms->count() }}">
+                                        <form class="form-group form-update-kuota-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                            action="<?php echo e(route('mentor.edit_kuota')); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <input type="hidden" value="<?php echo e($m->mp_ke_ms->count()); ?>" name="jsc"
+                                                class="jsc-<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                                data-jsc="<?php echo e($m->mp_ke_ms->count()); ?>">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
-                                                    value="{{ $m->kode_mentor_pelajaran }}">
+                                                    value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
-                                                <span id="pesan_error-{{ $m->kode_mentor_pelajaran }}"
+                                                <span id="pesan_error-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     class="text-danger"></span>
                                                 <input type="number" name="kuota_baru"
-                                                    data-id="{{ $m->kode_mentor_pelajaran }}"
-                                                    min="{{ $m->mp_ke_ms->count() }}" max="150" value="{{ $m->kuota }}"
-                                                    class="form-control text-center w-100 kuota-baru-{{ $m->kode_mentor_pelajaran }}"
+                                                    data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
+                                                    min="<?php echo e($m->mp_ke_ms->count()); ?>" max="150" value="<?php echo e($m->kuota); ?>"
+                                                    class="form-control text-center w-100 kuota-baru-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="{{ $m->kode_mentor_pelajaran }}"><i class="fas fa-upload"></i>
+                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -330,15 +333,18 @@
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>
-                                                    {{ App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    {{ App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    {{ App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    <?php echo e(App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+
                                                     Soal
                                                 </td>
                                             </tr>
@@ -346,7 +352,7 @@
                                     </table>
                                 </div>
                             </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
                 </div>
@@ -365,7 +371,7 @@
             <div class="modal-body">
 
                 <form class="form-update" method="post" action="#">
-                    @csrf
+                    <?php echo csrf_field(); ?>
                     <div class="form-group">
                         <label for="exameInputEmail1">Kuota <span class="judul-kuota"></span> <span id="pesan_error"
                                 class="text-danger"></span></label>
@@ -394,15 +400,15 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-group" method="post" action="{{ route('mentor.tambah_mapel') }}">
-                    @csrf
+                <form class="form-group" method="post" action="<?php echo e(route('mentor.tambah_mapel')); ?>">
+                    <?php echo csrf_field(); ?>
                     <input type="hidden" name="kode_kelas" value="KLS-10">
                     <div class="form-group w-100">
                         <br>
                         <select name="mapel" class="form-control">
-                            @foreach ($mapel as $mp)
-                            <option value="{{ $mp->kode_mapel }}">{{ $mp->nama_pelajaran }}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $mapel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($mp->kode_mapel); ?>"><?php echo e($mp->nama_pelajaran); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
             </div>
@@ -423,15 +429,15 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-group" method="post" action="{{ route('mentor.tambah_mapel') }}">
-                    @csrf
+                <form class="form-group" method="post" action="<?php echo e(route('mentor.tambah_mapel')); ?>">
+                    <?php echo csrf_field(); ?>
                     <input type="hidden" name="kode_kelas" value="KLS-11">
                     <div class="form-group w-100">
                         <br>
                         <select name="mapel" class="form-control">
-                            @foreach ($mapel as $mp)
-                            <option value="{{ $mp->kode_mapel }}">{{ $mp->nama_pelajaran }}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $mapel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($mp->kode_mapel); ?>"><?php echo e($mp->nama_pelajaran); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
             </div>
@@ -452,15 +458,15 @@
             </div>
             <div class="modal-body">
 
-                <form class="form-group" method="post" action="{{ route('mentor.tambah_mapel') }}">
-                    @csrf
+                <form class="form-group" method="post" action="<?php echo e(route('mentor.tambah_mapel')); ?>">
+                    <?php echo csrf_field(); ?>
                     <input type="hidden" name="kode_kelas" value="KLS-12">
                     <div class="form-group w-100">
                         <br>
                         <select name="mapel" class="form-control">
-                            @foreach ($mapel as $mp)
-                            <option value="{{ $mp->kode_mapel }}">{{ $mp->nama_pelajaran }}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $mapel; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mp): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($mp->kode_mapel); ?>"><?php echo e($mp->nama_pelajaran); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
             </div>
@@ -473,26 +479,26 @@
 </div>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scriptcss')
+<?php $__env->startSection('scriptcss'); ?>
 
-<link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet">
 <style>
     .edit-kuota {
         display: none;
     }
 </style>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scriptjs')
+<?php $__env->startSection('scriptjs'); ?>
 <!-- Page level plugins -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="<?php echo e(asset('vendor/datatables/jquery.dataTables.min.js')); ?>"></script>
+<script src="<?php echo e(asset('vendor/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
 
 <!-- Page level custom scripts -->
-<script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+<script src="<?php echo e(asset('js/demo/datatables-demo.js')); ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 <script>
@@ -619,7 +625,7 @@
         //         $("#pesan_error").html("Tidak boleh dibawah angka jumlah siswa saat ini!").show().fadeOut(5000);
         //         return false;
         //     }else{
-        //         $(".form-update").attr("action", "{{ url('mentor/pelajaran/update/kuota/') }}" + "/" + kode_mapel);
+        //         $(".form-update").attr("action", "<?php echo e(url('mentor/pelajaran/update/kuota/')); ?>" + "/" + kode_mapel);
         //         $(".form-update").submit();
         //     }
         // });
@@ -644,7 +650,7 @@
         //     var js = $(this).attr("data-js");
 
         //     $(".kuota").val(kuota);
-        //     $(".form-update-kuota").attr("action", "{{ url('mentor/pelajaran/update/kuota/') }}" + "/" + id);
+        //     $(".form-update-kuota").attr("action", "<?php echo e(url('mentor/pelajaran/update/kuota/')); ?>" + "/" + id);
         //     $(".judul-modal2").text("");
         //     $(".judul-modal2").append(nama);
         //     $("[name='js']").val("");
@@ -701,7 +707,7 @@
 
     //     $.ajax({
     //         type: "post",
-    //         url: "{{ url('/mentor/pelajaran/ambil_data') }}",
+    //         url: "<?php echo e(url('/mentor/pelajaran/ambil_data')); ?>",
     //         data: {
     //             kode_mapel: kode_mapel
     //         },
@@ -730,12 +736,12 @@
 
     //         $.ajax({
     //             type: "post",
-    //             url: "{{ url('/mentor/pelajaran/ambil_data') }}",
+    //             url: "<?php echo e(url('/mentor/pelajaran/ambil_data')); ?>",
     //             data: {
     //                 kode_mapel: kode_mapel
     //             },
     //             success: function(hasil){
-    //                 $(".btn-pdf").attr("href", "{{ url('mentor/pelajaran/cetak') }}" + "/" + kode_mapel);
+    //                 $(".btn-pdf").attr("href", "<?php echo e(url('mentor/pelajaran/cetak')); ?>" + "/" + kode_mapel);
 
     //                 $(".materi").text(hasil.materi + " materi");
     //                 $(".soal").text(hasil.soal + " materi");
@@ -772,7 +778,7 @@
 
     //                     $.ajax({
     //                         type: "post",
-    //                         url: "{{ url('mentor/pelajaran/hapus/') }}" + "/" + id,
+    //                         url: "<?php echo e(url('mentor/pelajaran/hapus/')); ?>" + "/" + id,
     //                         success: function(hasil){
     //                             console.log(hasil);
     //                             location.reload();
@@ -784,19 +790,9 @@
     // });
 
 </script>
-{{--
-@if(Session::get('berhasil_tambah_mapel'))
-<script>
-    Swal.fire(
-        'Berhasil!',
-        "berhasil menambahkan mata pelajaran",
-        'success'
-    )
 
-</script>
-@endif
 
-@if(Session::get('pelajaran_dihapus'))
+<?php if(Session::get('pelajaran_dihapus')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -805,48 +801,9 @@
     )
 
 </script>
-@endif
+<?php endif; ?>
 
-@if(Session::has('berhasil_update_mapel'))
-<script>
-    Swal.fire(
-        'Berhasil!',
-        "berhasil mengupdate mata pelajaran",
-        'success'
-    )
-
-</script>
-@endif
-@if(Session::has('pelajaran_kosong'))
-<script>
-    Swal.fire({
-        title: "Tambah Mata Pelajaran",
-        text: "Sebelum anda melanjutkan, anda diharuskan menambahkan minimal 1 mata pelajaran",
-        type: "warning",
-        showCancelButton: false,
-        showConfirmButton: true,
-        confirmButtonText: "Mengerti",
-        animation: false,
-        customClass: {
-            popup: "animated bounce"
-        }
-    });
-</script>
-{{Session::forget("pelajaran_kosong")}}
-@endif --}}
-
-@if(Session::get('pelajaran_dihapus'))
-<script>
-    Swal.fire(
-        'Berhasil!',
-        "berhasil menghapus mata pelajaran",
-        'success'
-    )
-
-</script>
-@endif
-
-@if(Session::has('kuota_berhasil'))
+<?php if(Session::has('kuota_berhasil')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -855,10 +812,10 @@
     )
 
 </script>
-@endif
+<?php endif; ?>
 
 
-@if(Session::has('berhasil_tambah'))
+<?php if(Session::has('berhasil_tambah')): ?>
 <script>
     Swal.fire(
         'Berhasil!',
@@ -867,10 +824,10 @@
     )
 
 </script>
-@endif
+<?php endif; ?>
 
 
-@if(Session::has('sudah_ada'))
+<?php if(Session::has('sudah_ada')): ?>
 <script>
     Swal.fire({
         title: "Gagal",
@@ -885,8 +842,9 @@
         }
     });
 </script>
-@endif
+<?php endif; ?>
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mentor.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/wahyu/Desktop/mozart-elearning/resources/views/mentor/pages/mapel/index.blade.php ENDPATH**/ ?>

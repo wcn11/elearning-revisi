@@ -7,7 +7,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800"></h1>
-    <p class="mb-4">Murid yang ada pada daftar dibawah adalah murid yang mengikuti anda dan anda dapat <span
+    <p class="mb-4">tesMurid yang ada pada daftar dibawah adalah murid yang mengikuti anda dan anda dapat <span
             class="badge badge-danger">mengeluarkan</span> murid anda.</p>
     <div class="col text-right mb-3 mt-3">
 
@@ -43,8 +43,10 @@
                             <td>
                                 <button class="btn  btn-dark btn-sm btn-lihat" data-judul="{{ $m->judul_materi }}"
                                     data-materi="{{ $m->materi }}">Lihat Materi</button> |
-                                    <?php $id = Crypt::encrypt($m->kode_materi); ?>
-                                    <a class="btn  btn-success btn-sm" href="{{ action('Mentor\MateriController@downloadPDF', $id) }}">Download Materi (PDF)<br><sup>Video tidak akan tampil</sup></a>
+                                <?php $id = Crypt::encrypt($m->kode_materi); ?>
+                                <a class="btn  btn-success btn-sm"
+                                    href="{{ action('Mentor\MateriController@downloadPDF', $id) }}">Download Materi
+                                    (PDF)<br><sup>Video tidak akan tampil</sup></a>
                             </td>
                             <td>{{ $m->pelajaran->nama_pelajaran }}</td>
 

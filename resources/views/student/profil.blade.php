@@ -56,27 +56,28 @@
                                         @endif
                                     </div>
 
+                                    kelas
+                                    <div class="col-md-12 mb-3">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-info text-white">Kelas</span>
+                                        </div>
+
+                                        <input type="text" style="background-color: #4dbea5;" class="kelas" readonly data-target=".modal-ganti-kelas" value="12-IPA" type="button" data-toggle="modal">
+                                        <br>
+                                        <em class="text-dark-50 mt-5"><sup>Klik <span class="badge badge-info text-white"style="color:#4dbea5;">ubah kelas</span> untuk mengubah kelas anda</sup></em>
+                                    </div>
+
                                     <div class="col-md-12 mb-3">
 
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text bg-info text-white">Kelas</span>
+                                                <span class="input-group-text bg-info text-white">Ubah password</span>
                                             </div>
 
                                             <input type="password" style="background-color: #4dbea5;" class="password" readonly data-target=".modal-ganti-password" value="password" type="button" data-toggle="modal">
                                             <br>
                                             <em class="text-dark-50 mt-5"><sup>Klik <span class="badge badge-info text-white" data-toggle="modal" data-target=".modal-ganti-password" style="color:#4dbea5;">ubah password</span> untuk ganti password anda</sup></em>
                                         </div>
-
-                                        <div class="col-md-12 mb-3">
-    
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text bg-info text-white">Ubah password</span>
-                                                </div>
-    
-                                                <input type="password" style="background-color: #4dbea5;" class="password" readonly data-target=".modal-ganti-password" value="password" type="button" data-toggle="modal">
-                                                <br>
-                                                <em class="text-dark-50 mt-5"><sup>Klik <span class="badge badge-info text-white" data-toggle="modal" data-target=".modal-ganti-password" style="color:#4dbea5;">ubah password</span> untuk ganti password anda</sup></em>
-                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +135,39 @@
 </div>
 
 {{-- MODAL --}}
+
+{{-- modal ganti kelas --}}
+
+{{-- <div class="modal fade modal-ganti-kelas">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Ubah Kelas
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-ubah">Ubah</button>
+            </div>
+        </div>
+    </div>
+</div> --}}
 
 <div class="modal fade  modal-ganti-password" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -206,7 +240,8 @@
         height: auto;
         min-height: 200px;
     }
-    .password {
+    .password,
+    .kelas{
 	background-color: #4dbea5;
 	border: 0px;
 	border-radius: 5px;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
+use App\Kelas;
 use App\Mentor;
 use App\Student;
 use App\Materi;
@@ -86,26 +87,27 @@ class HomeController extends Controller
 
     public function tambah_mapel(Request $request)
     {
+
         $mapel = $request->mapel;
 
-        $mpl_max = Pelajaran::max("kode_mapel");
+        $mpl = Pelajaran::all();
 
-        $mpl_max_slash = strrpos($mpl_max, "-");
+        $mpl_array = [];
 
-        $mpl_max_substr = substr($mpl_max, $mpl_max_slash + 1) + 1;
+        foreach ($mpl as $m) {
+            $mpl_array[] = substr($m->kode_mapel, strrpos($m->kode_mapel, "-") + 1);
+        }
 
-        // echo $mpl_max_substr;
+        $kode_mapel = max($mpl_array) + 1;
 
         Pelajaran::create([
-            'kode_mapel' => "MPL-" . $mpl_max_substr,
+            'kode_mapel' => "MPL-" . $kode_mapel,
             'nama_pelajaran' => $mapel
         ]);
 
         Session::flash("berhasil_tambah", "berhasil");
 
         return redirect()->back();
-
-        // return view("master.mapel", compact("mapel"));
     }
 
     public function hapus_mapel($id)
@@ -130,5 +132,10 @@ class HomeController extends Controller
         Session::flash("mapel_update", "updated");
 
         return redirect()->back();
+    }
+
+    public function kelas()
+    {
+        return view("master.kelas");
     }
 }

@@ -22,8 +22,13 @@ class Mentor_pelajaran extends Model
      * @var array
      */
     protected $fillable = [
-        'kode_mentor_pelajaran', 'id_mentor', 'kuota', "kode_mapel", "tanggal_buat"
+        'kode_mentor_pelajaran', 'id_mentor', 'kuota', "kode_mapel", "tanggal_buat", "kode_kelas"
     ];
+
+    public function kelas_ke_mp()
+    {
+        return $this->belongsTo("App\Kelas", "kode_kelas");
+    }
 
     public function mp_ke_mapel()
     {

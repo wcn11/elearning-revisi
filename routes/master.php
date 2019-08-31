@@ -42,4 +42,6 @@ Route::group(['namespace' => 'Master'], function () {
     Route::post('/mapel/hapus/{id}', 'HomeController@hapus_mapel')->name('master.hapus_mapel');
     Route::post('/mapel/tambah', 'HomeController@tambah_mapel')->name('master.tambah_mapel');
     Route::post('/mapel/update', 'HomeController@update_mapel')->name('master.update_mapel');
+
+    Route::get("/kelas", "HomeController@kelas")->name('master.kelas');
 });

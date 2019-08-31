@@ -12,7 +12,7 @@ class Soal_judul extends Model
     protected $primaryKey = "kode_judul_soal";
     public $incrementing = false;
 
-    protected $fillable = ['kode_judul_soal', 'kode_mentor_pelajaran', 'tanggal_mulai', 'tanggal_selesai', 'jumlah_soal'];
+    protected $fillable = ['kode_judul_soal', 'kode_mentor_pelajaran', 'tanggal_mulai', 'kode_kelas', 'tanggal_selesai', 'jumlah_soal'];
 
     const CREATED_AT = "dibuat";
 

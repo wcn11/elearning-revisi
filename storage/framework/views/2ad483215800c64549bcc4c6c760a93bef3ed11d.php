@@ -54,27 +54,28 @@
                                         <?php endif; ?>
                                     </div>
 
+                                    kelas
+                                    <div class="col-md-12 mb-3">
+
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-info text-white">Kelas</span>
+                                        </div>
+
+                                        <input type="text" style="background-color: #4dbea5;" class="kelas" readonly data-target=".modal-ganti-kelas" value="12-IPA" type="button" data-toggle="modal">
+                                        <br>
+                                        <em class="text-dark-50 mt-5"><sup>Klik <span class="badge badge-info text-white"style="color:#4dbea5;">ubah kelas</span> untuk mengubah kelas anda</sup></em>
+                                    </div>
+
                                     <div class="col-md-12 mb-3">
 
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text bg-info text-white">Kelas</span>
+                                                <span class="input-group-text bg-info text-white">Ubah password</span>
                                             </div>
 
                                             <input type="password" style="background-color: #4dbea5;" class="password" readonly data-target=".modal-ganti-password" value="password" type="button" data-toggle="modal">
                                             <br>
                                             <em class="text-dark-50 mt-5"><sup>Klik <span class="badge badge-info text-white" data-toggle="modal" data-target=".modal-ganti-password" style="color:#4dbea5;">ubah password</span> untuk ganti password anda</sup></em>
                                         </div>
-
-                                        <div class="col-md-12 mb-3">
-    
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text bg-info text-white">Ubah password</span>
-                                                </div>
-    
-                                                <input type="password" style="background-color: #4dbea5;" class="password" readonly data-target=".modal-ganti-password" value="password" type="button" data-toggle="modal">
-                                                <br>
-                                                <em class="text-dark-50 mt-5"><sup>Klik <span class="badge badge-info text-white" data-toggle="modal" data-target=".modal-ganti-password" style="color:#4dbea5;">ubah password</span> untuk ganti password anda</sup></em>
-                                            </div>
                                 </div>
                             </div>
                         </div>
@@ -130,6 +131,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 
 
@@ -205,7 +210,8 @@
         height: auto;
         min-height: 200px;
     }
-    .password {
+    .password,
+    .kelas{
 	background-color: #4dbea5;
 	border: 0px;
 	border-radius: 5px;
