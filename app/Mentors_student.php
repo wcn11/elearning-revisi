@@ -8,7 +8,7 @@ class Mentors_student extends Model
 {
     protected $table = 'mentor_student';
 
-    protected $fillable = ['kode_mentor_student', 'id_mentor', 'id_student', 'kode_kelas', 'kode_mapel', 'tanggal_mengikuti'];
+    protected $fillable = ['kode_mentor_student', "id_mentor", 'id_student', 'tanggal_mengikuti'];
 
     protected $primaryKey = "kode_mentor_student";
     protected $keyType = "string";
@@ -21,7 +21,7 @@ class Mentors_student extends Model
 
     public function mp_ke_ms()
     {
-        return $this->hasMany('App\Mentor_pelajaran', "kode_mentor_pelajaran");
+        return $this->belongsTo('App\Mentor_pelajaran', "kode_mentor_pelajaran");
     }
     public function m_ke_ms()
     {

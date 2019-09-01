@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mentor;
+use App\Mentor_pelajaran;
 use App\Mentors_student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -37,12 +38,24 @@ class MentorController extends Controller
 
     public function mapel_mentor($id)
     {
+        $mp10 = Mentor_pelajaran::where("id_mentor", $id)->where("kode_kelas", "KLS-10")->get();
+        $mp11 = Mentor_pelajaran::where("id_mentor", $id)->where("kode_kelas", "KLS-11")->get();
+        $mp12 = Mentor_pelajaran::where("id_mentor", $id)->where("kode_kelas", "KLS-12")->get();
+
         $mentor = Mentor::find($id);
 
-        return view("student.mapel_mentor", compact('mentor'));
+        $ms = Mentors_student::where("id_mentor", $id)->where("id_student", Auth::guard("student")->user()->id_student)->get();
+
+        $ms_array = [];
+
+        foreach ($ms as $s) {
+            $ms_array[] = $s->kode_mentor_pelajaran;
+        }
+
+        return view("student.mapel_mentor", compact('mentor', "mp10", "mp11", "mp12", "ms_array"));
     }
 
-    public function ambil_kelas($id_mentor, $id_kelas)
+    public function ambil_kelas($id_mentor, $kmp)
     {
         $ms = new Mentors_student;
 
@@ -56,13 +69,13 @@ class MentorController extends Controller
 
         $id_mentor_substr = substr($id_mentor, $id_mentor_slash + 1) + 1;
 
-        $kmp_slash = strrpos($id_kelas, "-");
+        $kmp_slash = strrpos($kmp, "-");
 
-        $kmp_substr = substr($id_kelas, $kmp_slash + 1) + 1;
+        $kmp_substr = substr($kmp, $kmp_slash + 1) + 1;
 
         $ms->kode_mentor_student = "MS-" . $id_mentor_substr . "-" . $kmp_substr . "-" . $ms_substr;
 
-        $ms->kode_mentor_pelajaran = $id_kelas;
+        $ms->kode_mentor_pelajaran = $kmp;
 
         $ms->id_mentor = $id_mentor;
 
@@ -127,11 +140,13 @@ class MentorController extends Controller
         return redirect()->back();
     }
 
-    public function unfollow($ksp)
+    public function unfollow($kmp)
     {
-        $std = Mentors_student::find($ksp);
+        $std = Mentors_student::where("kode_mentor_pelajaran", $kmp)->where("id_student", Auth::guard("student")->user()->id_student)->get();
 
-        $std->delete();
+        foreach ($std as $s) {
+            Mentors_student::find($s->kode_mentor_student)->delete();
+        }
 
         Session::flash("berhasil_unfollow", "berhasil");
 

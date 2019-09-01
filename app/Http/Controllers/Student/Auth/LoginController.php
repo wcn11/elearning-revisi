@@ -10,6 +10,7 @@ use Socialite;
 use App\Student;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+
 class LoginController extends Controller
 {
     /*
@@ -80,31 +81,32 @@ class LoginController extends Controller
         return redirect($this->redirectTo);
     }
 
-    public function redirectToProvider($driver){
-        return Socialite::driver("google")->redirect();
-    
+    public function redirectToProvider($driver)
+    {
+        return Socialite::driver($driver)->redirect();
     }
 
-    public function handleProviderCallback($driver){
-            try {
+    public function handleProviderCallback($driver)
+    {
+        try {
 
-                date_default_timezone_set('Asia/Jakarta');
+            date_default_timezone_set('Asia/Jakarta');
 
-                $m = Student::max("id_student");
-                $s = substr($m, strrpos($m, "-")+1)+1;
+            $m = Student::max("id_student");
+            $s = substr($m, strrpos($m, "-") + 1) + 1;
 
-                $std = Socialite::driver($driver)->user();
-                $user_terdaftar = Student::where("email", $std->email)->first();
+            $std = Socialite::driver($driver)->user();
+            $user_terdaftar = Student::where("email", $std->email)->first();
 
-                if($user_terdaftar){
-                    Auth::guard("student")->loginUsingId($user_terdaftar->id);
-                }else{
-                    
-                }
-                $create = Student::firstOrCreate([
+            if ($user_terdaftar) {
+                Auth::guard("student")->loginUsingId($user_terdaftar->id);
+            } else { }
+            $create = Student::firstOrCreate(
+                [
                     'email' => $std->getEmail()
-                ],[
-                    'id_student' => "STD-".$s,
+                ],
+                [
+                    'id_student' => "STD-" . $s,
                     'socialite_id' => $std->getId(),
                     'socialite_name' => $driver,
                     'name' => $std->getName(),
@@ -116,10 +118,8 @@ class LoginController extends Controller
             Auth::guard('student')->login($create, true);
 
             return redirect()->route("student.dashboard");
-            
-            } catch (\Exception $e) {
-                return redirect()->route("student.login");
-            }
+        } catch (\Exception $e) {
+            return redirect()->route("student.login");
+        }
     }
-
 }

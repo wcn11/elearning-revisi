@@ -9,63 +9,78 @@
     <h1 class="h3 mb-2 text-gray-800">Daftar Murid</h1>
     <p class="mb-4">Murid yang ada pada daftar dibawah adalah murid yang mengikuti anda dan anda dapat <span
             class="badge badge-danger">mengeluarkan</span> murid anda.</p>
-            <div class="text-right">
+    <div class="text-right">
 
-                {{--  <button class="btn btn-info text-right btn-tambah"><i class="fas fa-plus"></i> Tambah Kelas</button>  --}}
-            </div>
-    <div class="p-2"></div>
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        {{-- <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Murid</h6>
-        </div> --}}
+        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-10-tab" data-toggle="pill" href="#pills-10" role="tab"
+                    aria-controls="pills-10" aria-selected="true">Kelas 10</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-11-tab" data-toggle="pill" href="#pills-11" role="tab"
+                    aria-controls="pills-11" aria-selected="false">Kelas 11</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-12-tab" data-toggle="pill" href="#pills-12" role="tab"
+                    aria-controls="pills-12" aria-selected="false">Kelas 12</a>
+            </li>
+        </ul>
 
-        <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    @foreach($mentor->m_ke_mp as $m)
-                        <a class="nav-item nav-link" id="nav-{{ $m->kode_mentor_pelajaran }}-tab" data-toggle="tab" href="#nav-{{ $m->kode_mentor_pelajaran }}" >{{ $m->mp_ke_mapel->nama_pelajaran }}</a>
-                    @endforeach
-                  {{-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                  <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a> --}}
-                </div>
-              </nav>
+        <hr>
 
-              <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
 
+            {{-- KELAS 10 --}}
+            <div class="tab-pane fade show active" id="pills-10" role="tabpanel" aria-labelledby="pills-10-tab">
 
-              <div class="tab-content" id="nav-tabContent">
-                  @foreach($mentor->m_ke_mp as $m)
-                    <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}" data-id="{{ $m->kode_mentor_pelajaran }}">
-                        <div class="table-responsive">
-                            <p>Kuota kelas : {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
-                            <button class="btn btn-info text-right btn-edit" data-id="{{ $m->kode_mentor_pelajaran }}" data-kuota-sekarang="{{ $m->kuota }}" data-jumlah-student="{{ $m->mp_ke_ms->count() }}"><i class="fas fa-restroom"></i> Edit Kuota Kelas</button>
+                {{-- KEPAlA 10 --}}
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        @foreach($std10 as $m)
+                        <a class="nav-item nav-link" id="nav-{{ $m->kode_mentor_pelajaran }}-tab" data-toggle="tab"
+                            href="#nav-{{ $m->kode_mentor_pelajaran }}">{{ $m->mp_ke_mapel->nama_pelajaran }}</a>
+                        @endforeach
+                    </div>
+                </nav>
+                {{-- END KEPALA 10 --}}
 
-                            <button class="btn btn-danger text-right btn-hapus" data-id="{{ $m->kode_mentor_pelajaran }}"><i class="fas fa-restroom"></i> Hapus Kelas</button></<button>
+                <div class="p-2"></div>
 
-                            <form action="{{ route('mentor.hapus_mapel') }}" class="form-hapus" method="post">
-                                @csrf
-                                <input type="hidden" name="kmp">
-                            </form>
+                {{-- BODY 10 --}}
+                <div class="card-body">
 
-                            <div class="p-2"></div>
-                            <table class="table table-table-hover table-bordered" id="tabel-{{ $m->kode_mentor_pelajaran }}">
-                                <thead>
-                                    <tr>
-                                        <th>Profil</th>
-                                        <th>ID Student</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Tanggal Mengikuti</th>
-                                        <th>Pilihan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($m->mp_ke_ms as $ms)
+                    <div class="tab-content" id="nav-tabContent">
+                        @foreach($std10 as $m)
+                        <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}"
+                            data-id="{{ $m->kode_mentor_pelajaran }}">
+                            <div class="table-responsive">
+
+                                <p>Kuota kelas : {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
+                                <button class="btn btn-info text-right btn-edit"
+                                    data-id="{{ $m->kode_mentor_pelajaran }}" data-kuota-sekarang="{{ $m->kuota }}"
+                                    data-jumlah-student="{{ $m->mp_ke_ms->count() }}"><i class="fas fa-restroom"></i>
+                                    Edit Kuota Kelas</button>
+
+                                <div class="p-2"></div>
+                                <table class="table table-table-hover table-bordered"
+                                    id="tabel-{{ $m->kode_mentor_pelajaran }}">
+                                    <thead>
+                                        <tr>
+                                            <th>Profil</th>
+                                            <th>ID Student</th>
+                                            <th>Nama</th>
+                                            <th>Email</th>
+                                            <th>Tanggal Mengikuti</th>
+                                            <th>Pilihan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($m->mp_ke_ms as $ms)
                                         <tr class="text-center">
-                                            {{-- {{ $ms->s_ke_ms }} --}}
                                             <td class="w-25">
                                                 <div class="profil justify-content-center">
-                                                    <img src="{{ url($ms->s_ke_ms->foto) }}" class="rounded text-center gambar border-success border w-100 border-20">
+                                                    <img src="{{ url($ms->s_ke_ms->foto) }}"
+                                                        class="rounded text-center gambar border-success border w-100 border-20">
                                                 </div>
                                             </td>
                                             <td>{{ $ms->s_ke_ms->id_student }}</td>
@@ -73,78 +88,231 @@
                                             <td>{{ $ms->s_ke_ms->email }}</td>
                                             <td>{{ $ms->tanggal_mengikuti }}</td>
                                             <td>
-                                                <button class="btn btn-info btn-keluarkan" data-id="{{ $ms->kode_mentor_pelajaran }}"><i class="fas fa-outdent"></i> Keluarkan</button>
+                                                <button class="btn btn-info btn-keluarkan"
+                                                    data-id="{{ $ms->kode_mentor_pelajaran }}"><i
+                                                        class="fas fa-outdent"></i>
+                                                    Keluarkan</button>
                                             </td>
-                                            <form action="{{ route('mentor.student_destroy') }}" class="form-keluarkan-{{ $ms->kode_mentor_pelajaran }}" method="post">
+                                            <form action="{{ route('mentor.student_destroy') }}"
+                                                class="form-keluarkan-{{ $ms->kode_mentor_pelajaran }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="kode_mengikuti" value="{{ $ms->kode_mengikuti }}">
+                                                <input type="hidden" name="kode_mengikuti"
+                                                    value="{{ $ms->kode_mengikuti }}">
                                             </form>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
 
                         </div>
-
+                        @endforeach
                     </div>
-                @endforeach
-              </div>
-            </div>
-    </div>
-</div>
+                </div>
+                {{-- END BODY 10 --}}
 
+            </div>
+            {{-- END KELAS 10 --}}
+
+            {{-- KELAS 11 --}}
+            <div class="tab-pane fade" id="pills-11" role="tabpanel" aria-labelledby="pills-11-tab">
+
+                {{-- KEPALA 11 --}}
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        @foreach($std11 as $m)
+                        <a class="nav-item nav-link" id="nav-{{ $m->kode_mentor_pelajaran }}-tab" data-toggle="tab"
+                            href="#nav-{{ $m->kode_mentor_pelajaran }}">{{ $m->mp_ke_mapel->nama_pelajaran }}</a>
+                        @endforeach
+                    </div>
+                </nav>
+                {{-- END KEPALA 11 --}}
+
+                <div class="p-2"></div>
+
+                {{-- BODY 11 --}}
+                <div class="card-body">
+
+                    <div class="tab-content" id="nav-tabContent">
+                        @foreach($std11 as $m)
+                        <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}"
+                            data-id="{{ $m->kode_mentor_pelajaran }}">
+                            <div class="table-responsive">
+
+                                <p>Kuota kelas : {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
+                                <button class="btn btn-info text-right btn-edit"
+                                    data-id="{{ $m->kode_mentor_pelajaran }}" data-kuota-sekarang="{{ $m->kuota }}"
+                                    data-jumlah-student="{{ $m->mp_ke_ms->count() }}"><i class="fas fa-restroom"></i>
+                                    Edit Kuota Kelas</button>
+
+                                <div class="p-2"></div>
+                                <table class="table table-table-hover table-bordered"
+                                    id="tabel-{{ $m->kode_mentor_pelajaran }}">
+                                    <thead>
+                                        <tr>
+                                            <th>Profil</th>
+                                            <th>ID Student</th>
+                                            <th>Nama</th>
+                                            <th>Email</th>
+                                            <th>Tanggal Mengikuti</th>
+                                            <th>Pilihan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($m->mp_ke_ms as $ms)
+                                        <tr class="text-center">
+                                            <td class="w-25">
+                                                <div class="profil justify-content-center">
+                                                    <img src="{{ url($ms->s_ke_ms->foto) }}"
+                                                        class="rounded text-center gambar border-success border w-100 border-20">
+                                                </div>
+                                            </td>
+                                            <td>{{ $ms->s_ke_ms->id_student }}</td>
+                                            <td>{{ $ms->s_ke_ms->name }}</td>
+                                            <td>{{ $ms->s_ke_ms->email }}</td>
+                                            <td>{{ $ms->tanggal_mengikuti }}</td>
+                                            <td>
+                                                <button class="btn btn-info btn-keluarkan"
+                                                    data-id="{{ $ms->kode_mentor_pelajaran }}"><i
+                                                        class="fas fa-outdent"></i>
+                                                    Keluarkan</button>
+                                            </td>
+                                            <form action="{{ route('mentor.student_destroy') }}"
+                                                class="form-keluarkan-{{ $ms->kode_mentor_pelajaran }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="kode_mengikuti"
+                                                    value="{{ $ms->kode_mengikuti }}">
+                                            </form>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                {{-- END BODY 11--}}
+
+            </div>
+            {{-- END KELAS 11 --}}
+
+            {{-- KELAS 12 --}}
+            <div class="tab-pane fade" id="pills-12" role="tabpanel" aria-labelledby="pills-12-tab">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        @foreach($std12 as $m)
+                        <a class="nav-item nav-link" id="nav-{{ $m->kode_mentor_pelajaran }}-tab" data-toggle="tab"
+                            href="#nav-{{ $m->kode_mentor_pelajaran }}">{{ $m->mp_ke_mapel->nama_pelajaran }}</a>
+                        @endforeach
+                    </div>
+                </nav>
+
+                <div class="p-2"></div>
+
+                {{-- BODY 12 --}}
+                <div class="card-body">
+
+                    <div class="tab-content" id="nav-tabContent">
+                        @foreach($std12 as $m)
+                        <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}"
+                            data-id="{{ $m->kode_mentor_pelajaran }}">
+                            <div class="table-responsive">
+
+                                <p>Kuota kelas : {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
+                                <button class="btn btn-info text-right btn-edit"
+                                    data-id="{{ $m->kode_mentor_pelajaran }}" data-kuota-sekarang="{{ $m->kuota }}"
+                                    data-jumlah-student="{{ $m->mp_ke_ms->count() }}"><i class="fas fa-restroom"></i>
+                                    Edit Kuota Kelas</button>
+
+                                <div class="p-2"></div>
+                                <table class="table table-table-hover table-bordered"
+                                    id="tabel-{{ $m->kode_mentor_pelajaran }}">
+                                    <thead>
+                                        <tr>
+                                            <th>Profil</th>
+                                            <th>ID Student</th>
+                                            <th>Nama</th>
+                                            <th>Email</th>
+                                            <th>Tanggal Mengikuti</th>
+                                            <th>Pilihan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($m->mp_ke_ms as $ms)
+                                        <tr class="text-center">
+                                            <td class="w-25">
+                                                <div class="profil justify-content-center">
+                                                    <img src="{{ url($ms->s_ke_ms->foto) }}"
+                                                        class="rounded text-center gambar border-success border w-100 border-20">
+                                                </div>
+                                            </td>
+                                            <td>{{ $ms->s_ke_ms->id_student }}</td>
+                                            <td>{{ $ms->s_ke_ms->name }}</td>
+                                            <td>{{ $ms->s_ke_ms->email }}</td>
+                                            <td>{{ $ms->tanggal_mengikuti }}</td>
+                                            <td>
+                                                <button class="btn btn-info btn-keluarkan"
+                                                    data-id="{{ $ms->kode_mentor_pelajaran }}"><i
+                                                        class="fas fa-outdent"></i>
+                                                    Keluarkan</button>
+                                            </td>
+                                            <form action="{{ route('mentor.student_destroy') }}"
+                                                class="form-keluarkan-{{ $ms->kode_mentor_pelajaran }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="kode_mentor_student"
+                                                    value="{{ $ms->kode_mentor_student }}">
+                                            </form>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                {{-- END BODY 12 --}}
+
+            </div>
+            {{-- END KELAS 12 --}}
+        </div>
+
+    </div>
+
+</div>
 
 <div class="modal fade modal-kuota" tabindex="-1" role="dialog" aria-labelledby="modal-kuota" aria-hidden="true">
     <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-            <div class="w-100 p-2 mb-3">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="w-100 p-2 mb-3">
 
-                <form class="form-kuota" action="{{ route('mentor.update_kuota') }}" method="post">
+                    <form class="form-kuota" action="{{ route('mentor.update_kuota') }}" method="post">
 
-                    @csrf
-                    <input name="kmp" type="hidden">
-                    <input type="hidden" name="jumlah_student"> <span id="pesan_error" class="text-danger"></span>
-                    <input type="number" min="1" name="kuota" class="form-control kuota" value="0" id="input-kuota" placeholder="Kuota Kelas" required>
-                    <div class="text-kuota d-none">
-                        Harap isi kuota kelas
-                    </div>
+                        @csrf
+                        <input name="kmp" type="hidden">
+                        <input type="hidden" name="jumlah_student"> <span id="pesan_error" class="text-danger"></span>
+                        <input type="number" min="1" name="kuota" class="form-control kuota" value="0" max="100"
+                            id="input-kuota" placeholder="Kuota Kelas" required>
+                        <div class="text-kuota d-none">
+                            Harap isi kuota kelas
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="modal-footer">
+            <div class="modal-footer">
                 <button class="btn btn-info btn-update-kuota">Update</button>
                 <button class="btn btn-dark" data-dismiss="modal">Batal</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-<div class="modal fade modal-tambah" tabindex="-1" role="dialog" aria-labelledby="modal-kuota" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <div class="modal-body">
-            <div class="w-100 p-2 mb-3">
-
-                <form class="form-tambah" action="{{ route('mentor.tambah_mapel') }}" method="post">
-
-                    @csrf
-                    <select class="form-control" name="mapel">
-                        @foreach($mapel as $m)
-                            <option value="{{ $m->kode_mapel }}"> {{ $m->nama_pelajaran }}</option>
-                        @endforeach
-                    </select>
-
             </div>
         </div>
-        <div class="modal-footer">
-                <button class="btn btn-info btn-update"><i class="fas fa-plus"></i> Tambah</button>
-                <button class="btn btn-dark" data-dismiss="modal">Batal</button>
-            </form>
-        </div>
-    </div>
     </div>
 </div>
 
@@ -161,14 +329,15 @@
         /* min-height: 200px; */
         text-align: center;
     }
-    .profil{
+
+    .profil {
         width: 60%;
         text-align: center !important;
     }
-    .sorting_1{
+
+    .sorting_1 {
         width: 20%;
     }
-
 </style>
 @endsection
 
@@ -183,29 +352,29 @@
 <script>
     $(document).ready(function () {
 
-        $(".btn-hapus").click(function(){
-            var id = $(this).attr("data-id");
-            $("[name='kmp']").val(id);
+        // $(".btn-hapus").click(function(){
+        //     var id = $(this).attr("data-id");
+        //     $("[name='kmp']").val(id);
 
-            Swal.fire({
-                title: 'Peringatan!',
-                text: 'Seluruh data berdasarkan pelajaran ini akan dihapus keseluruhan dan tidak dapat dikembalikan!',
-                type:'warning',
-                confirmButtonText: "Hapus",
-                confirmButtonColor: "red",
-                cancelButtonColor: "#343a40",
-                showCancelButton: true,
-                cancelButtonText: "Batal",
-                animation: false,
-                customClass: {
-                    popup: "animated shake"
-                }
-            }).then((result) => {
-                if(result.value){
-                    $(".form-hapus").submit();
-                }
-            });
-        });
+        //     Swal.fire({
+        //         title: 'Peringatan!',
+        //         text: 'Seluruh data berdasarkan pelajaran ini akan dihapus keseluruhan dan tidak dapat dikembalikan!',
+        //         type:'warning',
+        //         confirmButtonText: "Hapus",
+        //         confirmButtonColor: "red",
+        //         cancelButtonColor: "#343a40",
+        //         showCancelButton: true,
+        //         cancelButtonText: "Batal",
+        //         animation: false,
+        //         customClass: {
+        //             popup: "animated shake"
+        //         }
+        //     }).then((result) => {
+        //         if(result.value){
+        //             $(".form-hapus").submit();
+        //         }
+        //     });
+        // });
 
         $(".btn-edit").click(function(){
             var id = $(this).attr("data-id");
@@ -224,6 +393,22 @@
             if(kuota < js){
                 $("#pesan_error").html("Kuota tidak boleh dibawah jumlah student saat ini!").show().fadeOut("slow");
                 return false;
+            }else if(kuota > 100){
+            Swal.fire({
+                title: 'Terlalu banyak!',
+                text: 'Maksimal Kuota Murid Dalam 1 Mata Pelajaran Adalah 100 murid!',
+                type:'warning',
+                confirmButtonText: "Mengerti",
+                confirmButtonColor: "red",
+                animation: false,
+                customClass: {
+                    popup: "animated shake"
+                }
+            }).then((result) => {
+                if(result.value){
+                    $(".kuota").val(kuota);
+                }
+            });
             }else{
                 $(".form-kuota").submit();
             }
@@ -233,7 +418,18 @@
             //if the letter is not digit then display error and don't type anything
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 //display error message
-                $("#pesan_error").html("Hanya Angka!").show().fadeOut("slow");
+                // $("#pesan_error").html("Hanya Angka!").show().fadeOut("slow");
+                Swal.fire({
+                title: 'Bukan angka!',
+                html: 'Harap masukkan angka, misal: 27.<br><br><small><span class="text-warning font-weight-bold">Note:</span>  Jumlah kuota harus lebih besar atau sama dengan jumlah murid saat ini yang mengikuti pelajaran pada kelas ini</small>',
+                type:'warning',
+                confirmButtonText: "Mengerti",
+                confirmButtonColor: "black",
+                animation: false,
+                customClass: {
+                    popup: "animated shake"
+                }
+            });
                 return false;
             }
         });

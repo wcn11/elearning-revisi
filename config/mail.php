@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 465),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'system@saunghusen.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'admin@saunghusen.com'),
         'name' => env('MAIL_FROM_NAME', 'Mozart E-learning'),
     ],
 

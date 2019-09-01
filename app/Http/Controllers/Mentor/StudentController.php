@@ -29,7 +29,17 @@ class StudentController extends Controller
 
         $mapel = Pelajaran::all();
 
-        return view('mentor.pages.student.index', compact('mentor', "mapel"));
+        // return view('mentor.pages.student.index', compact('mentor', "mapel"));
+
+        $id_mentor = Auth::guard('mentor')->user()->id_mentor;
+
+        $std10 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-10")->get();
+
+        $std11 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-11")->get();
+
+        $std12 = Mentor_pelajaran::where("id_mentor", $id_mentor)->where("kode_kelas", "KLS-12")->get();
+
+        return view('mentor.pages.student.index', compact("std10", "std11", "std12", "mentor", "mapel"));
     }
 
     public function getDataStudent()
@@ -81,20 +91,6 @@ class StudentController extends Controller
         }
     }
 
-    public function hapus_mapel(Request $req)
-    {
-        $kmp = $req->kmp;
-
-        $mp = Mentor_pelajaran::find($kmp);
-
-        $mp->delete();
-
-        Session::flash("berhasil_mp", "berhasil");
-
-        return redirect()->back();
-    }
-
-
     public function addItem(Request $request, $id)
     {
         $rules = array(
@@ -124,7 +120,7 @@ class StudentController extends Controller
     {
 
 
-        $std = Mentors_student::find($req->kode_mengikuti);
+        $std = Mentors_student::find($req->kode_mentor_student);
 
         $std->delete();
 

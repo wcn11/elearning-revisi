@@ -28,7 +28,7 @@ Route::group(['namespace' => 'Student'], function () {
     Route::post("mentor/ambildatafull", "MentorController@ambildatafull")->middleware("student.status_soal");
     Route::get("mentor/ikuti/{id}", "MentorController@ikuti")->name("student.ikuti_mentor")->middleware("student.status_soal");
     Route::post("mentor/unfollow/{id}", "MentorController@unfollow")->name("student.unfollow")->middleware("student.status_soal");
-    Route::get("mentor/ambilkelas/{id_mentor}/{id_kelas}", "MentorController@ambil_kelas")->name('student.ambil_kelas')->middleware("student.status_soal");
+    Route::get("mentor/ambilkelas/{id_mentor}/{kmp}", "MentorController@ambil_kelas")->name('student.ambil_kelas')->middleware("student.status_soal");
     Route::get("mentor/unfollow/{ksp}", "MentorController@unfollow")->name('student.unfollow')->middleware("student.status_soal");
 
     Route::get("redirect/{driver}", "Auth\LoginController@redirectToProvider")->name("login.student.provider");

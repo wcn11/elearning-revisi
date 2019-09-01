@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Session;
 
 /*
@@ -11,7 +12,9 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('student.auth.login');
 });
 
+// u6282263
