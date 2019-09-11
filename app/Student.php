@@ -69,6 +69,11 @@ class Student extends Authenticatable implements MustVerifyEmail
         $this->notify(new StudentVerifyEmail);
     }
 
+    public function student_ke_ms()
+    {
+        return $this->hasMany("App\Mentors_student", "id_student");
+    }
+
     public function mentor()
     {
         return $this->belongsToMany('App\Mentor', "App\Mentors_student", "id_student", "id_mentor");

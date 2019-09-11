@@ -73,6 +73,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if($m->mp_ke_ms->count() > 0): ?>
                                         <?php $__currentLoopData = $m->mp_ke_ms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ms): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr class="text-center">
                                             <td class="w-25">
@@ -99,6 +100,12 @@
                                             </form>
                                         </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php else: ?>
+                                        <tr>
+                                            <td class="text-center" colspan="6">Anda Belum Mempunyai Seorang Murid Pada
+                                                Pelajaran Ini</td>
+                                        </tr>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
 
@@ -158,6 +165,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if($m->mp_ke_ms->count()): ?> > 0
                                         <?php $__currentLoopData = $m->mp_ke_ms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ms): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr class="text-center">
                                             <td class="w-25">
@@ -184,6 +192,12 @@
                                             </form>
                                         </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php else: ?>
+                                        <tr>
+                                            <td class="text-center" colspan="6">Anda Belum Mempunyai Seorang Murid Pada
+                                                Pelajaran Ini</td>
+                                        </tr>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
 
@@ -241,6 +255,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php if($m->mp_ke_ms->count() > 0): ?>
                                         <?php $__currentLoopData = $m->mp_ke_ms; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ms): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr class="text-center">
                                             <td class="w-25">
@@ -267,6 +282,12 @@
                                             </form>
                                         </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php else: ?>
+                                        <tr>
+                                            <td class="text-center" colspan="6">Anda Belum Mempunyai Seorang Murid Pada
+                                                Pelajaran Ini</td>
+                                        </tr>
+                                        <?php endif; ?>
                                     </tbody>
                                 </table>
 

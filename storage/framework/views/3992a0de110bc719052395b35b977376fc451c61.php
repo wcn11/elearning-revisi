@@ -49,18 +49,17 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if($m->kode_kelas == "KLS-10"): ?>
+                                <?php $__currentLoopData = $kls10; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <button class="nav-item nav-link" href="#nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS10"
                                     data-toggle="tab" role="tab">
                                     <?php echo e($m->mp_ke_mapel->nama_pelajaran); ?></button>
-                                <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </nav>
 
                         <div class="tab-content" id="nav-tabContent">
-                            <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($kls10->count() > 0): ?>
+                            <?php $__currentLoopData = $kls10; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="tab-pane fade" id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS10" role="tabpanel"
                                 aria-labelledby="nav-KLS10-tab">
 
@@ -87,23 +86,21 @@
                                         <form class="form-group form-update-kuota-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                             action="<?php echo e(route('mentor.edit_kuota')); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
-                                            <input type="hidden" value="<?php echo e($m->mp_ke_ms->count()); ?>" name="jsc"
-                                                class="jsc-<?php echo e($m->kode_mentor_pelajaran); ?>"
-                                                data-jsc="<?php echo e($m->mp_ke_ms->count()); ?>">
+                                            <input type="hidden" name="kmp" value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
                                                     value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
                                                 <span id="pesan_error-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     class="text-danger"></span>
-                                                <input type="number" name="kuota_baru"
-                                                    data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
-                                                    min="<?php echo e($m->mp_ke_ms->count()); ?>" max="150" value="<?php echo e($m->kuota); ?>"
+                                                <input type="number" name="kuota_baru" min="<?php echo e($m->mp_ke_ms->count()); ?>"
+                                                    max="150" value="<?php echo e($m->kuota); ?>"
                                                     class="form-control text-center w-100 kuota-baru-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"><i class="fas fa-upload"></i>
+                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>" data-kuota="<?php echo e($m->kuota); ?>"
+                                                data-siswa="<?php echo e($m->mp_ke_ms->count()); ?>"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -121,17 +118,17 @@
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>
-                                                    <?php echo e(App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e($m->mp_ke_ms->count()); ?>
 
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    <?php echo e(App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e($m->mp_ke_materi->count()); ?>
 
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    <?php echo e(App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e($m->mp_ke_js->count()); ?>
 
                                                     Soal
                                                 </td>
@@ -141,6 +138,11 @@
                                 </div>
                             </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
+                            <div class="text-center">
+                                Anda belum menambah mata pelajaran untuk kelas 10
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -166,7 +168,9 @@
                         </nav>
 
                         <div class="tab-content" id="nav-tabContent">
-                            <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($kls11->count() > 0): ?>
+                            <?php $__currentLoopData = $kls11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
                             <div class="tab-pane fade" id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS11" role="tabpanel"
                                 aria-labelledby="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-<?php echo e($m->kode_kelas); ?>-<?php echo e($m->kode_mapel); ?>-tab">
 
@@ -193,23 +197,22 @@
                                         <form class="form-group form-update-kuota-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                             action="<?php echo e(route('mentor.edit_kuota')); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
-                                            <input type="hidden" value="<?php echo e($m->mp_ke_ms->count()); ?>" name="jsc"
-                                                class="jsc-<?php echo e($m->kode_mentor_pelajaran); ?>"
-                                                data-jsc="<?php echo e($m->mp_ke_ms->count()); ?>">
+
+                                            <input type="hidden" name="kmp" value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
                                                     value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
                                                 <span id="pesan_error-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     class="text-danger"></span>
-                                                <input type="number" name="kuota_baru"
-                                                    data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
-                                                    min="<?php echo e($m->mp_ke_ms->count()); ?>" max="150" value="<?php echo e($m->kuota); ?>"
+                                                <input type="number" name="kuota_baru" min="<?php echo e($m->mp_ke_ms->count()); ?>"
+                                                    max="150" value="<?php echo e($m->kuota); ?>"
                                                     class="form-control text-center w-100 kuota-baru-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"><i class="fas fa-upload"></i>
+                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>" data-kuota="<?php echo e($m->kuota); ?>"
+                                                data-siswa="<?php echo e($m->mp_ke_ms->count()); ?>"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -227,17 +230,17 @@
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>
-                                                    <?php echo e(App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e($m->mp_ke_ms->count()); ?>
 
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    <?php echo e(App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e($m->mp_ke_materi->count()); ?>
 
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    <?php echo e(App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e($m->mp_ke_js->count()); ?>
 
                                                     Soal
                                                 </td>
@@ -247,6 +250,12 @@
                                 </div>
                             </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
+
+                            <div class="text-center">
+                                Anda belum menambah mata pelajaran untuk kelas 11
+                            </div>
+                            <?php endif; ?>
                         </div>
 
                     </div>
@@ -261,19 +270,19 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php if($m->kode_kelas == "KLS-12"): ?>
+                                <?php $__currentLoopData = $kls12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <button class="nav-item nav-link" href="#nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS12"
                                     id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-tab" data-toggle="tab" role="tab">
                                     <?php echo e($m->mp_ke_mapel->nama_pelajaran); ?></button>
-                                <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </nav>
 
 
                         <div class="tab-content" id="nav-tabContent">
-                            <?php $__currentLoopData = $mentor->m_ke_mp; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                            <?php if($kls12->count() > 0): ?>
+                            <?php $__currentLoopData = $kls12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="tab-pane fade" id="nav-<?php echo e($m->kode_mentor_pelajaran); ?>-KLS12" role="tabpanel">
 
                                 <p class="p-2">Jumlah murid saat ini = <?php echo e($m->mp_ke_ms->count()); ?> / <?php echo e($m->kuota); ?></p>
@@ -281,7 +290,8 @@
                                     <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
                                         data-nama="<?php echo e($m->mp_ke_mapel->nama_pelajaran); ?>"
                                         class="btn btn-outline-danger btn-hapus-pelajaran animated bounceInUp"><i
-                                            class="fas fa-trash-alt"></i> Hapus</button>
+                                            class="fas fa-trash-alt"></i>
+                                        Hapus</button>
                                     <button data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
                                         class="btn btn-outline-secondary btn-edit animated bounceInUp"><i
                                             class="fas fa-edit"></i>
@@ -299,23 +309,22 @@
                                         <form class="form-group form-update-kuota-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                             action="<?php echo e(route('mentor.edit_kuota')); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
-                                            <input type="hidden" value="<?php echo e($m->mp_ke_ms->count()); ?>" name="jsc"
-                                                class="jsc-<?php echo e($m->kode_mentor_pelajaran); ?>"
-                                                data-jsc="<?php echo e($m->mp_ke_ms->count()); ?>">
+
+                                            <input type="hidden" name="kmp" value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
                                                     value="<?php echo e($m->kode_mentor_pelajaran); ?>">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
                                                 <span id="pesan_error-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     class="text-danger"></span>
-                                                <input type="number" name="kuota_baru"
-                                                    data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"
-                                                    min="<?php echo e($m->mp_ke_ms->count()); ?>" max="150" value="<?php echo e($m->kuota); ?>"
+                                                <input type="number" name="kuota_baru" min="<?php echo e($m->mp_ke_ms->count()); ?>"
+                                                    max="150" value="<?php echo e($m->kuota); ?>"
                                                     class="form-control text-center w-100 kuota-baru-<?php echo e($m->kode_mentor_pelajaran); ?>"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>"><i class="fas fa-upload"></i>
+                                                data-id="<?php echo e($m->kode_mentor_pelajaran); ?>" data-kuota="<?php echo e($m->kuota); ?>"
+                                                data-siswa="<?php echo e($m->mp_ke_ms->count()); ?>"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -332,18 +341,19 @@
                                         </thead>
                                         <tbody>
                                             <tr class="text-center">
+
                                                 <td>
-                                                    <?php echo e(App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e(App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_mentor_pelajaran', $m->kode_mentor_pelajaran)->count()); ?>
 
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    <?php echo e(App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e(App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_mentor_pelajaran', $m->kode_mentor_pelajaran)->count()); ?>
 
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    <?php echo e(App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count()); ?>
+                                                    <?php echo e(App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_mentor_pelajaran', $m->kode_mentor_pelajaran)->count()); ?>
 
                                                     Soal
                                                 </td>
@@ -353,6 +363,11 @@
                                 </div>
                             </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
+                            <div class="text-center">
+                                Anda belum menambah mata pelajaran untuk kelas 12
+                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -377,6 +392,7 @@
                                 class="text-danger"></span></label>
                         <input type="hidden" class="kode_mapel">
                         <input type="hidden" class="js">
+                        <input type="hidden" class="kode_kelas">
                         <input type="number" name="kuota" class="form-control kuota" max="150">
 
                     </div>
@@ -528,13 +544,14 @@
 
         $(".btn-update-kuota").click(function(){
             var kode = $(this).attr("data-id");
+            
+            var jumlah_siswa = $(this).attr("data-siswa");
+            var kuota = $(this).attr("data-kuota");
+            var kuota_baru = $(".kuota-baru-" + kode).val();
 
-            var js = $(".jumlah-kuota-" + kode).val();
-            var jsc = $(".jsc-" + kode).val();
-            var kuota = $(".kuota-baru-" + kode).val();
-            var jsc = $(".jsc-" + kode).val();
+            // console.log(jumlah_siswa);
 
-            if(kuota < jsc){
+            if(kuota_baru < jumlah_siswa){
                 Swal.fire({
                     title: "Gagal",
                     text: "Kuota tidak boleh dibawah jumlah student (murid) saat ini !",

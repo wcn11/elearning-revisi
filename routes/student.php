@@ -71,5 +71,7 @@ Route::group(['namespace' => 'Student'], function () {
         Route::get('soal/mengerjakan/{id}/{id_param}/callback', function () {
             return redirect()->route("student.soal");
         });
+
+        Route::get("data_mentor/{id_mentor}", "MateriController@data_mentor");
     });
 });

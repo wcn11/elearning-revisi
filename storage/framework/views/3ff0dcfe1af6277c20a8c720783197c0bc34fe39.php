@@ -32,6 +32,7 @@
         
         <div class="tab-pane fade show active" id="pills-10" role="tabpanel" aria-labelledby="pills-10-tab">
 
+            <?php if($js10->count() > 0): ?>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <?php $__currentLoopData = $js10; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -174,6 +175,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php if($j10->mp_ke_js->count() > 0): ?>
                                 <?php $__currentLoopData = $j10->mp_ke_js; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mpks): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="text-center">
                                     <td><?php echo e($mpks->judul); ?></td>
@@ -202,6 +204,11 @@
                                     </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                <tr>
+                                    <td class="text-center" colspan="9">Anda Belum Membuat Soal</td>
+                                </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -209,12 +216,18 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
+            <?php else: ?>
+            <div class="text-center">
+                Anda Belum Menambahkan Mata Pelajaran Pada Kelas 10
+            </div>
+            <?php endif; ?>
         </div>
         
 
         
         <div class="tab-pane fade" id="pills-11" role="tabpanel" aria-labelledby="pills-11-tab">
 
+            <?php if($js11->count() > 0): ?>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <?php $__currentLoopData = $js11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j11): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -358,6 +371,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php if($j11->mp_ke_js->count() > 0): ?>
                                 <?php $__currentLoopData = $j11->mp_ke_js; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mpks): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="text-center">
                                     <td><?php echo e($mpks->judul); ?></td>
@@ -386,6 +400,11 @@
                                     </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                <tr>
+                                    <td class="text-center" colspan="9">Anda Belum Membuat Soal</td>
+                                </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -393,11 +412,18 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
 
+            <?php else: ?>
+            <div class="text-center">
+                Anda Belum Menambahkan Mata Pelajaran Pada Kelas 12
+            </div>
+            <?php endif; ?>
         </div>
         
 
         
         <div class="tab-pane fade" id="pills-12" role="tabpanel" aria-labelledby="pills-12-tab">
+
+            <?php if($js12->count() > 0): ?>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <?php $__currentLoopData = $js12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $j12): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -541,6 +567,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php if($j12->mp_ke_js->count() > 0): ?>
                                 <?php $__currentLoopData = $j12->mp_ke_js; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mpks): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="text-center">
                                     <td><?php echo e($mpks->judul); ?></td>
@@ -569,12 +596,22 @@
                                     </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                <tr>
+                                    <td class="text-center" colspan="9">Anda Belum Membuat Soal</td>
+                                </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
+            <?php else: ?>
+            <div class="text-center">
+                Anda Belum Menambahkan Mata Pelajaran Pada Kelas 12
+            </div>
+            <?php endif; ?>
         </div>
         
     </div>

@@ -35,6 +35,7 @@
         {{-- KELAS 10 --}}
         <div class="tab-pane fade show active" id="pills-10" role="tabpanel" aria-labelledby="pills-10-tab">
 
+            @if($js10->count() > 0)
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     @foreach($js10 as $j10)
@@ -177,6 +178,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if($j10->mp_ke_js->count() > 0)
                                 @foreach($j10->mp_ke_js as $mpks)
                                 <tr class="text-center">
                                     <td>{{ $mpks->judul }}</td>
@@ -205,6 +207,11 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @else
+                                <tr>
+                                    <td class="text-center" colspan="9">Anda Belum Membuat Soal</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -212,12 +219,18 @@
                 @endforeach
             </div>
 
+            @else
+            <div class="text-center">
+                Anda Belum Menambahkan Mata Pelajaran Pada Kelas 10
+            </div>
+            @endif
         </div>
         {{-- END KELAS 10 --}}
 
         {{-- KELAS 11--}}
         <div class="tab-pane fade" id="pills-11" role="tabpanel" aria-labelledby="pills-11-tab">
 
+            @if($js11->count() > 0)
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     @foreach($js11 as $j11)
@@ -361,6 +374,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if($j11->mp_ke_js->count() > 0)
                                 @foreach($j11->mp_ke_js as $mpks)
                                 <tr class="text-center">
                                     <td>{{ $mpks->judul }}</td>
@@ -389,6 +403,11 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @else
+                                <tr>
+                                    <td class="text-center" colspan="9">Anda Belum Membuat Soal</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -396,11 +415,18 @@
                 @endforeach
             </div>
 
+            @else
+            <div class="text-center">
+                Anda Belum Menambahkan Mata Pelajaran Pada Kelas 12
+            </div>
+            @endif
         </div>
         {{-- END KELAS 11 --}}
 
         {{-- KELAS 12 --}}
         <div class="tab-pane fade" id="pills-12" role="tabpanel" aria-labelledby="pills-12-tab">
+
+            @if($js12->count() > 0)
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     @foreach($js12 as $j12)
@@ -544,6 +570,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if($j12->mp_ke_js->count() > 0)
                                 @foreach($j12->mp_ke_js as $mpks)
                                 <tr class="text-center">
                                     <td>{{ $mpks->judul }}</td>
@@ -572,12 +599,22 @@
                                     </td>
                                 </tr>
                                 @endforeach
+                                @else
+                                <tr>
+                                    <td class="text-center" colspan="9">Anda Belum Membuat Soal</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
                 @endforeach
             </div>
+            @else
+            <div class="text-center">
+                Anda Belum Menambahkan Mata Pelajaran Pada Kelas 12
+            </div>
+            @endif
         </div>
         {{-- END KELAS 12 --}}
     </div>

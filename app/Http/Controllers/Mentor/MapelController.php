@@ -19,7 +19,20 @@ class MapelController extends Controller
 
         $mapel = Pelajaran::all();
 
-        return view("mentor.pages.mapel.index", compact("mentor", "mapel"));
+        $kls10 = Mentor_pelajaran::where("id_mentor", Auth::guard('mentor')->user()->id_mentor)->where("kode_kelas", "KLS-10")->get();
+
+        $kls11 = Mentor_pelajaran::where("id_mentor", Auth::guard('mentor')->user()->id_mentor)->where("kode_kelas", "KLS-11")->get();
+
+        $kls12 = Mentor_pelajaran::where("id_mentor", Auth::guard('mentor')->user()->id_mentor)->where("kode_kelas", "KLS-12")->get();
+
+        // $std10 = [];
+        // foreach ($kls10 as $a) {
+        //     $std10[] = array($a->mp_ke_ms);
+        // }
+
+        // echo count($std10);
+
+        return view("mentor.pages.mapel.index", compact("mentor", "mapel", "kls10", "kls11", "kls12"));
     }
 
     public function tambah_mapel(Request $r)
@@ -34,16 +47,6 @@ class MapelController extends Controller
         } else {
             $mapel1 = $r->mapel;
             $id_mentor = Auth::guard('mentor')->user()->id_mentor;
-
-            // $mapel_all = Mentor::find($id_mentor);
-
-            // foreach ($mapel_all->m_ke_mp as $m) {
-            //     if ($m->kode_mapel == $mapel1) {
-            //         Session::flash("sudah_ada", "ada");
-            //         return redirect()->back();
-            //         break;
-            //     }
-            // }
 
             $kelas_substr = substr($r->kode_kelas, strrpos($r->kode_kelas, "-") + 1);
 
@@ -81,7 +84,7 @@ class MapelController extends Controller
 
     public function edit_kuota(Request $request)
     {
-        $pelajaran = Mentor_pelajaran::find($request->kode_mp);
+        $pelajaran = Mentor_pelajaran::find($request->kmp);
 
         $pelajaran->kuota = $request->kuota_baru;
 

@@ -77,6 +77,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php if($m10->mp_ke_materi->count() > 0): ?>
                                     <?php $__currentLoopData = $m10->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="text-center">
                                         <td>
@@ -116,6 +117,12 @@
                                         </td>
                                     </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php else: ?>
+                                    <tr>
+                                        <td class="text-center" colspan="8">Anda Belum Membuat Materi Untuk Mata
+                                            Pelajaran ini.
+                                    </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -146,14 +153,14 @@
                 
                 <div class="tab-content" id="nav-tabContent">
 
-                    <?php $__currentLoopData = $materi_11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="tab-pane fade p-2" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tabpanel"
-                        aria-labelledby="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab">
+                    <?php $__currentLoopData = $materi_11; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m11): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="tab-pane fade p-2" id="nav-<?php echo e($m11->kode_mentor_pelajaran); ?>" role="tabpanel"
+                        aria-labelledby="nav-<?php echo e($m11->kode_mentor_pelajaran); ?>-tab">
 
                         <div class="w-100 text-center m-2">
                             <form action="<?php echo e(route('mentor.tambah_materi')); ?>" class="form" method="get">
 
-                                <input type="hidden" name="kmp" value="<?php echo e($m10->kode_mentor_pelajaran); ?>">
+                                <input type="hidden" name="kmp" value="<?php echo e($m11->kode_mentor_pelajaran); ?>">
                                 
                                 <button type="submit" class="btn btn-dark text-right"><i class="fas fa-plus"></i> Tambah
                                     materi</button>
@@ -175,7 +182,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $__currentLoopData = $m10->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($m11->mp_ke_materi->count() > 0): ?>
+                                    <?php $__currentLoopData = $m11->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="text-center">
                                         <td>
                                             <div class="p-1 cover">
@@ -214,6 +222,12 @@
                                         </td>
                                     </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php else: ?>
+                                    <tr>
+                                        <td class="text-center" colspan="8">Anda Belum Membuat Materi Untuk Mata
+                                            Pelajaran ini.
+                                    </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -244,14 +258,14 @@
                 
                 <div class="tab-content" id="nav-tabContent">
 
-                    <?php $__currentLoopData = $materi_12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m10): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="tab-pane fade p-2" id="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>" role="tabpanel"
-                        aria-labelledby="nav-<?php echo e($m10->kode_mentor_pelajaran); ?>-tab">
+                    <?php $__currentLoopData = $materi_12; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m12): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="tab-pane fade p-2" id="nav-<?php echo e($m12->kode_mentor_pelajaran); ?>" role="tabpanel"
+                        aria-labelledby="nav-<?php echo e($m12->kode_mentor_pelajaran); ?>-tab">
 
                         <div class="w-100 text-center m-2">
                             <form action="<?php echo e(route('mentor.tambah_materi')); ?>" class="form" method="get">
 
-                                <input type="hidden" name="kmp" value="<?php echo e($m10->kode_mentor_pelajaran); ?>">
+                                <input type="hidden" name="kmp" value="<?php echo e($m12->kode_mentor_pelajaran); ?>">
                                 
                                 <button type="submit" class="btn btn-dark text-right"><i class="fas fa-plus"></i> Tambah
                                     materi</button>
@@ -273,7 +287,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $__currentLoopData = $m10->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if($m12->mp_ke_materi->count() > 0): ?>
+                                    <?php $__currentLoopData = $m12->mp_ke_materi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $m2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="text-center">
                                         <td>
                                             <div class="p-1 cover">
@@ -291,7 +306,7 @@
                                                     class="fas fa-file-pdf"></i> Cetak
                                                 Materi<br><small>Video tidak akan tampil</small></a>
                                         </td>
-                                        <td><?php echo e($m10->kelas_ke_mp->kelas); ?></td>
+                                        <td><?php echo e($m12->kelas_ke_mp->kelas); ?></td>
                                         <td><?php echo e($m2->mapel_ke_materi->nama_pelajaran); ?></td>
                                         <td><?php echo e($m2->dibuat); ?></td>
                                         <td><?php echo e($m2->diupdate); ?></td>
@@ -312,6 +327,12 @@
                                         </td>
                                     </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php else: ?>
+                                    <tr>
+                                        <td class="text-center" colspan="8">Anda Belum Membuat Materi Untuk Mata
+                                            Pelajaran ini.
+                                    </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

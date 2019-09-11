@@ -71,13 +71,15 @@ class SoalController extends Controller
 
         $sj = Soal_judul::all();
 
-        $js_array = [];
+        $js_array = array();
 
         foreach ($sj as $m) {
-            $js_array[] = substr($m->kode_judul_soal, strrpos($m->kode_judul_soal, "-") + 1);
+            array_push($js_array, substr($m->kode_judul_soal, strrpos($m->kode_judul_soal, "-") + 1));
         }
 
-        $kode_js = max($js_array) + 1;
+        echo count($js_array) > 0 ? max($js_array) + 1 : 1;
+
+        $kode_js = count($js_array) > 0 ? max($js_array) + 1 : 1;;
 
         $kode_mapel = $request->kode_mapel;
         $kode_mapel_slash = strrpos($kode_mapel, "-");
@@ -92,7 +94,6 @@ class SoalController extends Controller
         $jam_selesai     = $request->jam_selesai;
 
         $sub_tjs = $tanggal_selesai . " " . $jam_selesai . ":00";
-
 
         $sj = new Soal_judul;
 
@@ -129,19 +130,13 @@ class SoalController extends Controller
 
             $sl = Soal::all();
 
-            $soal_array = [];
+            $soal_array = array();
 
             foreach ($sl as $m) {
-                $soal_array[] = substr($m->kode_soal, strrpos($m->kode_soal, "-") + 1);
+                array_push($soal_array, substr($m->kode_soal, strrpos($m->kode_soal, "-") + 1));
             }
 
-            $kode_soal = max($soal_array) + 1;
-
-            // $soal = Soal::max("kode_soal");
-
-            // $soal_slash = strrpos($soal, "-") + 1;
-
-            // $soal_substr = substr($soal, $soal_slash) + 1;
+            $kode_soal = count($soal_array) > 0 ? max($soal_array) + 1 : 1;
 
             $sl = Soal::create([
                 'kode_soal' => "SOAL-" . $mentor_substr . "-" . $kode_soal,
@@ -158,7 +153,6 @@ class SoalController extends Controller
         }
 
         $kode_encrypted = Crypt::encrypt($sj->kode_judul_soal);
-
 
         return redirect()->route("mentor.buat_soal", $kode_encrypted);
     }

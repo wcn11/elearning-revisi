@@ -80,6 +80,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($m10->mp_ke_materi->count() > 0)
                                     @foreach($m10->mp_ke_materi as $m2)
                                     <tr class="text-center">
                                         <td>
@@ -119,6 +120,12 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @else
+                                    <tr>
+                                        <td class="text-center" colspan="8">Anda Belum Membuat Materi Untuk Mata
+                                            Pelajaran ini.
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -149,14 +156,14 @@
                 {{-- <input type="hidden" value="{{ $mentor->m_ke_mp->count() }}" name="jumlah_materi"> --}}
                 <div class="tab-content" id="nav-tabContent">
 
-                    @foreach ($materi_11 as $m10)
-                    <div class="tab-pane fade p-2" id="nav-{{ $m10->kode_mentor_pelajaran }}" role="tabpanel"
-                        aria-labelledby="nav-{{ $m10->kode_mentor_pelajaran }}-tab">
+                    @foreach ($materi_11 as $m11)
+                    <div class="tab-pane fade p-2" id="nav-{{ $m11->kode_mentor_pelajaran }}" role="tabpanel"
+                        aria-labelledby="nav-{{ $m11->kode_mentor_pelajaran }}-tab">
 
                         <div class="w-100 text-center m-2">
                             <form action="{{ route('mentor.tambah_materi') }}" class="form" method="get">
 
-                                <input type="hidden" name="kmp" value="{{ $m10->kode_mentor_pelajaran }}">
+                                <input type="hidden" name="kmp" value="{{ $m11->kode_mentor_pelajaran }}">
                                 {{-- <input type="hidden" name="kmp" value="{{  }}"> --}}
                                 <button type="submit" class="btn btn-dark text-right"><i class="fas fa-plus"></i> Tambah
                                     materi</button>
@@ -178,7 +185,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($m10->mp_ke_materi as $m2)
+                                    @if($m11->mp_ke_materi->count() > 0)
+                                    @foreach($m11->mp_ke_materi as $m2)
                                     <tr class="text-center">
                                         <td>
                                             <div class="p-1 cover">
@@ -217,6 +225,12 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @else
+                                    <tr>
+                                        <td class="text-center" colspan="8">Anda Belum Membuat Materi Untuk Mata
+                                            Pelajaran ini.
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -247,14 +261,14 @@
                 {{-- <input type="hidden" value="{{ $mentor->m_ke_mp->count() }}" name="jumlah_materi"> --}}
                 <div class="tab-content" id="nav-tabContent">
 
-                    @foreach ($materi_12 as $m10)
-                    <div class="tab-pane fade p-2" id="nav-{{ $m10->kode_mentor_pelajaran }}" role="tabpanel"
-                        aria-labelledby="nav-{{ $m10->kode_mentor_pelajaran }}-tab">
+                    @foreach ($materi_12 as $m12)
+                    <div class="tab-pane fade p-2" id="nav-{{ $m12->kode_mentor_pelajaran }}" role="tabpanel"
+                        aria-labelledby="nav-{{ $m12->kode_mentor_pelajaran }}-tab">
 
                         <div class="w-100 text-center m-2">
                             <form action="{{ route('mentor.tambah_materi') }}" class="form" method="get">
 
-                                <input type="hidden" name="kmp" value="{{ $m10->kode_mentor_pelajaran }}">
+                                <input type="hidden" name="kmp" value="{{ $m12->kode_mentor_pelajaran }}">
                                 {{-- <input type="hidden" name="kmp" value="{{  }}"> --}}
                                 <button type="submit" class="btn btn-dark text-right"><i class="fas fa-plus"></i> Tambah
                                     materi</button>
@@ -276,7 +290,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($m10->mp_ke_materi as $m2)
+                                    @if($m12->mp_ke_materi->count() > 0)
+                                    @foreach($m12->mp_ke_materi as $m2)
                                     <tr class="text-center">
                                         <td>
                                             <div class="p-1 cover">
@@ -294,7 +309,7 @@
                                                     class="fas fa-file-pdf"></i> Cetak
                                                 Materi<br><small>Video tidak akan tampil</small></a>
                                         </td>
-                                        <td>{{ $m10->kelas_ke_mp->kelas }}</td>
+                                        <td>{{ $m12->kelas_ke_mp->kelas }}</td>
                                         <td>{{ $m2->mapel_ke_materi->nama_pelajaran }}</td>
                                         <td>{{ $m2->dibuat }}</td>
                                         <td>{{ $m2->diupdate }}</td>
@@ -315,6 +330,12 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @else
+                                    <tr>
+                                        <td class="text-center" colspan="8">Anda Belum Membuat Materi Untuk Mata
+                                            Pelajaran ini.
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

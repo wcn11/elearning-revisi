@@ -52,18 +52,17 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                @foreach ($mentor->m_ke_mp as $m)
-                                @if($m->kode_kelas == "KLS-10")
+                                @foreach ($kls10 as $m)
                                 <button class="nav-item nav-link" href="#nav-{{ $m->kode_mentor_pelajaran }}-KLS10"
                                     data-toggle="tab" role="tab">
                                     {{ $m->mp_ke_mapel->nama_pelajaran }}</button>
-                                @endif
                                 @endforeach
                             </div>
                         </nav>
 
                         <div class="tab-content" id="nav-tabContent">
-                            @foreach ($mentor->m_ke_mp as $m)
+                            @if($kls10->count() > 0)
+                            @foreach ($kls10 as $m)
                             <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}-KLS10" role="tabpanel"
                                 aria-labelledby="nav-KLS10-tab">
 
@@ -90,23 +89,21 @@
                                         <form class="form-group form-update-kuota-{{ $m->kode_mentor_pelajaran }}"
                                             action="{{ route('mentor.edit_kuota') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" value="{{ $m->mp_ke_ms->count() }}" name="jsc"
-                                                class="jsc-{{ $m->kode_mentor_pelajaran }}"
-                                                data-jsc="{{ $m->mp_ke_ms->count() }}">
+                                            <input type="hidden" name="kmp" value="{{ $m->kode_mentor_pelajaran }}">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
                                                     value="{{ $m->kode_mentor_pelajaran }}">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
                                                 <span id="pesan_error-{{ $m->kode_mentor_pelajaran }}"
                                                     class="text-danger"></span>
-                                                <input type="number" name="kuota_baru"
-                                                    data-id="{{ $m->kode_mentor_pelajaran }}"
-                                                    min="{{ $m->mp_ke_ms->count() }}" max="150" value="{{ $m->kuota }}"
+                                                <input type="number" name="kuota_baru" min="{{ $m->mp_ke_ms->count() }}"
+                                                    max="150" value="{{ $m->kuota }}"
                                                     class="form-control text-center w-100 kuota-baru-{{ $m->kode_mentor_pelajaran }}"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="{{ $m->kode_mentor_pelajaran }}"><i class="fas fa-upload"></i>
+                                                data-id="{{ $m->kode_mentor_pelajaran }}" data-kuota="{{ $m->kuota }}"
+                                                data-siswa="{{ $m->mp_ke_ms->count() }}"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -124,15 +121,15 @@
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>
-                                                    {{ App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{ $m->mp_ke_ms->count()}}
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    {{ App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{  $m->mp_ke_materi->count() }}
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    {{ App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-10')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{ $m->mp_ke_js->count()}}
                                                     Soal
                                                 </td>
                                             </tr>
@@ -141,6 +138,11 @@
                                 </div>
                             </div>
                             @endforeach
+                            @else
+                            <div class="text-center">
+                                Anda belum menambah mata pelajaran untuk kelas 10
+                            </div>
+                            @endif
                         </div>
                     </div>
 
@@ -166,7 +168,9 @@
                         </nav>
 
                         <div class="tab-content" id="nav-tabContent">
-                            @foreach ($mentor->m_ke_mp as $m)
+                            @if($kls11->count() > 0)
+                            @foreach ($kls11 as $m)
+
                             <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}-KLS11" role="tabpanel"
                                 aria-labelledby="nav-{{ $m->kode_mentor_pelajaran }}-{{$m->kode_kelas }}-{{ $m->kode_mapel }}-tab">
 
@@ -193,23 +197,22 @@
                                         <form class="form-group form-update-kuota-{{ $m->kode_mentor_pelajaran }}"
                                             action="{{ route('mentor.edit_kuota') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" value="{{ $m->mp_ke_ms->count() }}" name="jsc"
-                                                class="jsc-{{ $m->kode_mentor_pelajaran }}"
-                                                data-jsc="{{ $m->mp_ke_ms->count() }}">
+
+                                            <input type="hidden" name="kmp" value="{{ $m->kode_mentor_pelajaran }}">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
                                                     value="{{ $m->kode_mentor_pelajaran }}">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
                                                 <span id="pesan_error-{{ $m->kode_mentor_pelajaran }}"
                                                     class="text-danger"></span>
-                                                <input type="number" name="kuota_baru"
-                                                    data-id="{{ $m->kode_mentor_pelajaran }}"
-                                                    min="{{ $m->mp_ke_ms->count() }}" max="150" value="{{ $m->kuota }}"
+                                                <input type="number" name="kuota_baru" min="{{ $m->mp_ke_ms->count() }}"
+                                                    max="150" value="{{ $m->kuota }}"
                                                     class="form-control text-center w-100 kuota-baru-{{ $m->kode_mentor_pelajaran }}"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="{{ $m->kode_mentor_pelajaran }}"><i class="fas fa-upload"></i>
+                                                data-id="{{ $m->kode_mentor_pelajaran }}" data-kuota="{{ $m->kuota }}"
+                                                data-siswa="{{ $m->mp_ke_ms->count() }}"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -227,15 +230,15 @@
                                         <tbody>
                                             <tr class="text-center">
                                                 <td>
-                                                    {{ App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{ $m->mp_ke_ms->count()}}
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    {{ App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{  $m->mp_ke_materi->count() }}
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    {{ App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-11')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{ $m->mp_ke_js->count()}}
                                                     Soal
                                                 </td>
                                             </tr>
@@ -244,6 +247,12 @@
                                 </div>
                             </div>
                             @endforeach
+                            @else
+
+                            <div class="text-center">
+                                Anda belum menambah mata pelajaran untuk kelas 11
+                            </div>
+                            @endif
                         </div>
 
                     </div>
@@ -258,19 +267,19 @@
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                @foreach ($mentor->m_ke_mp as $m)
-                                @if($m->kode_kelas == "KLS-12")
+                                @foreach ($kls12 as $m)
                                 <button class="nav-item nav-link" href="#nav-{{ $m->kode_mentor_pelajaran }}-KLS12"
                                     id="nav-{{ $m->kode_mentor_pelajaran }}-tab" data-toggle="tab" role="tab">
                                     {{ $m->mp_ke_mapel->nama_pelajaran }}</button>
-                                @endif
                                 @endforeach
                             </div>
                         </nav>
 
 
                         <div class="tab-content" id="nav-tabContent">
-                            @foreach ($mentor->m_ke_mp as $m)
+
+                            @if($kls12->count() > 0)
+                            @foreach ($kls12 as $m)
                             <div class="tab-pane fade" id="nav-{{ $m->kode_mentor_pelajaran }}-KLS12" role="tabpanel">
 
                                 <p class="p-2">Jumlah murid saat ini = {{ $m->mp_ke_ms->count() }} / {{ $m->kuota }}</p>
@@ -278,7 +287,8 @@
                                     <button data-id="{{ $m->kode_mentor_pelajaran }}"
                                         data-nama="{{ $m->mp_ke_mapel->nama_pelajaran }}"
                                         class="btn btn-outline-danger btn-hapus-pelajaran animated bounceInUp"><i
-                                            class="fas fa-trash-alt"></i> Hapus</button>
+                                            class="fas fa-trash-alt"></i>
+                                        Hapus</button>
                                     <button data-id="{{ $m->kode_mentor_pelajaran }}"
                                         class="btn btn-outline-secondary btn-edit animated bounceInUp"><i
                                             class="fas fa-edit"></i>
@@ -296,23 +306,22 @@
                                         <form class="form-group form-update-kuota-{{ $m->kode_mentor_pelajaran }}"
                                             action="{{ route('mentor.edit_kuota') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" value="{{ $m->mp_ke_ms->count() }}" name="jsc"
-                                                class="jsc-{{ $m->kode_mentor_pelajaran }}"
-                                                data-jsc="{{ $m->mp_ke_ms->count() }}">
+
+                                            <input type="hidden" name="kmp" value="{{ $m->kode_mentor_pelajaran }}">
                                             <div class="form-group justify-content-center">
                                                 <input type="hidden" name="kode_mp"
                                                     value="{{ $m->kode_mentor_pelajaran }}">
                                                 <label for="exampleInputEmail1">Kuota</label><br>
                                                 <span id="pesan_error-{{ $m->kode_mentor_pelajaran }}"
                                                     class="text-danger"></span>
-                                                <input type="number" name="kuota_baru"
-                                                    data-id="{{ $m->kode_mentor_pelajaran }}"
-                                                    min="{{ $m->mp_ke_ms->count() }}" max="150" value="{{ $m->kuota }}"
+                                                <input type="number" name="kuota_baru" min="{{ $m->mp_ke_ms->count() }}"
+                                                    max="150" value="{{ $m->kuota }}"
                                                     class="form-control text-center w-100 kuota-baru-{{ $m->kode_mentor_pelajaran }}"
                                                     aria-describedby="emailHelp">
                                             </div>
                                             <button type="button" class="btn btn-primary btn-update-kuota"
-                                                data-id="{{ $m->kode_mentor_pelajaran }}"><i class="fas fa-upload"></i>
+                                                data-id="{{ $m->kode_mentor_pelajaran }}" data-kuota="{{ $m->kuota }}"
+                                                data-siswa="{{ $m->mp_ke_ms->count() }}"><i class="fas fa-upload"></i>
                                                 Update</button>
                                         </form>
                                     </div>
@@ -329,16 +338,17 @@
                                         </thead>
                                         <tbody>
                                             <tr class="text-center">
+
                                                 <td>
-                                                    {{ App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{ App\Mentors_student::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_mentor_pelajaran', $m->kode_mentor_pelajaran)->count()}}
                                                     Murid
                                                 </td>
                                                 <td>
-                                                    {{ App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{ App\Materi::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_mentor_pelajaran', $m->kode_mentor_pelajaran)->count() }}
                                                     Materi
                                                 </td>
                                                 <td>
-                                                    {{ App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_kelas', 'KLS-12')->where('kode_mapel', $m->kode_mapel)->count() }}
+                                                    {{ App\Soal_judul::where('id_mentor', Auth::guard('mentor')->user()->id_mentor)->where('kode_mentor_pelajaran', $m->kode_mentor_pelajaran)->count()}}
                                                     Soal
                                                 </td>
                                             </tr>
@@ -347,6 +357,11 @@
                                 </div>
                             </div>
                             @endforeach
+                            @else
+                            <div class="text-center">
+                                Anda belum menambah mata pelajaran untuk kelas 12
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -371,6 +386,7 @@
                                 class="text-danger"></span></label>
                         <input type="hidden" class="kode_mapel">
                         <input type="hidden" class="js">
+                        <input type="hidden" class="kode_kelas">
                         <input type="number" name="kuota" class="form-control kuota" max="150">
 
                     </div>
@@ -522,13 +538,14 @@
 
         $(".btn-update-kuota").click(function(){
             var kode = $(this).attr("data-id");
+            
+            var jumlah_siswa = $(this).attr("data-siswa");
+            var kuota = $(this).attr("data-kuota");
+            var kuota_baru = $(".kuota-baru-" + kode).val();
 
-            var js = $(".jumlah-kuota-" + kode).val();
-            var jsc = $(".jsc-" + kode).val();
-            var kuota = $(".kuota-baru-" + kode).val();
-            var jsc = $(".jsc-" + kode).val();
+            // console.log(jumlah_siswa);
 
-            if(kuota < jsc){
+            if(kuota_baru < jumlah_siswa){
                 Swal.fire({
                     title: "Gagal",
                     text: "Kuota tidak boleh dibawah jumlah student (murid) saat ini !",

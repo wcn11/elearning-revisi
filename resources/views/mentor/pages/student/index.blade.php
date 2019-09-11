@@ -75,6 +75,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if($m->mp_ke_ms->count() > 0)
                                         @foreach($m->mp_ke_ms as $ms)
                                         <tr class="text-center">
                                             <td class="w-25">
@@ -101,6 +102,12 @@
                                             </form>
                                         </tr>
                                         @endforeach
+                                        @else
+                                        <tr>
+                                            <td class="text-center" colspan="6">Anda Belum Mempunyai Seorang Murid Pada
+                                                Pelajaran Ini</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -160,6 +167,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if($m->mp_ke_ms->count()) > 0
                                         @foreach($m->mp_ke_ms as $ms)
                                         <tr class="text-center">
                                             <td class="w-25">
@@ -186,6 +194,12 @@
                                             </form>
                                         </tr>
                                         @endforeach
+                                        @else
+                                        <tr>
+                                            <td class="text-center" colspan="6">Anda Belum Mempunyai Seorang Murid Pada
+                                                Pelajaran Ini</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 
@@ -243,6 +257,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if($m->mp_ke_ms->count() > 0)
                                         @foreach($m->mp_ke_ms as $ms)
                                         <tr class="text-center">
                                             <td class="w-25">
@@ -269,6 +284,12 @@
                                             </form>
                                         </tr>
                                         @endforeach
+                                        @else
+                                        <tr>
+                                            <td class="text-center" colspan="6">Anda Belum Mempunyai Seorang Murid Pada
+                                                Pelajaran Ini</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
 

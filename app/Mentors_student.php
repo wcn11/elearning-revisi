@@ -14,6 +14,11 @@ class Mentors_student extends Model
     protected $keyType = "string";
     public $timestamps = false;
 
+
+    public function student_ke_ms()
+    {
+        return $this->belongsTo("App\Student", "id_student");
+    }
     public function student()
     {
         return $this->hasMany('App\Student', "id_student", "id_student");

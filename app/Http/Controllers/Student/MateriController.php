@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Student;
 use App\Mentor;
 use App\Materi;
+use App\Mentor_pelajaran;
 use App\Pelajaran;
 use DOMPDF;
 
@@ -48,11 +49,23 @@ class MateriController extends Controller
 
         $std = Student::find($id_student);
 
-        // foreach($std->mentor as $m){
-        //     echo "nama mentor = ". $m->name. "<br>";
-        // }
-        // echo $materi->pelajaran->nama_pelajaran;
-        return view("student.materi", ["std" => $std->mentor]);
+        $student = Mentors_student::where("id_student", $id_student)->get();
+
+        $id_mentor = array();
+
+        foreach ($student as $s) {
+            array_push($id_mentor, $s->id_mentor);
+        }
+
+        $id_mentor = array_unique($id_mentor);
+
+        $mentor = array();
+
+        foreach ($id_mentor as $m) {
+            array_push($mentor, Mentor::find($m));
+        }
+
+        return view("student.materi", compact("mentor"));
     }
 
     public function materi_read($id)
@@ -67,5 +80,53 @@ class MateriController extends Controller
         $mentor = Mentor::find($id);
 
         return view('student.daftar_materi', compact('mentor'));
+    }
+
+    public function data_mentor($id_mentor)
+    {
+
+        $mentor = Mentors_student::where("id_mentor", $id_mentor)->where("id_student", Auth::guard("student")->user()->id_student)->get();
+
+        $kls10 = array();
+        $kls11 = array();
+        $kls12 = array();
+
+        foreach ($mentor as $m) {
+            if ($m->mp_ke_ms->kode_kelas == "KLS-10") {
+                array_push($kls10, Mentor_pelajaran::find($m->mp_ke_ms->kode_mentor_pelajaran));
+            } else if ($m->mp_ke_ms->kode_kelas == "KLS-11") {
+                array_push($kls11, Mentor_pelajaran::find($m->mp_ke_ms->kode_mentor_pelajaran));
+            } else {
+                array_push($kls12, Mentor_pelajaran::find($m->mp_ke_ms->kode_mentor_pelajaran));
+            }
+        }
+
+        // re-declare
+
+        $kls10 = count($kls10) > 0 ? $kls10 : 0;
+        if ($kls10 > 0) {
+            foreach ($kls10 as $s) {
+                $s->mp_ke_mapel;
+                $s->mp_ke_materi;
+            }
+        }
+
+        $kls11 = count($kls11) > 0 ? $kls11 : 0;
+        if ($kls11 > 0) {
+            foreach ($kls11 as $s) {
+                $s->mp_ke_mapel;
+                $s->mp_ke_materi;
+            }
+        }
+        $kls12 = count($kls12) > 0 ? $kls12 : 0;
+
+        if ($kls12 > 0) {
+            foreach ($kls12 as $s) {
+                $s->mp_ke_mapel;
+                $s->mp_ke_materi;
+            }
+        }
+
+        return response()->json(array($kls10, $kls11, $kls12));
     }
 }
